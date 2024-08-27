@@ -1,0 +1,19 @@
+.busketFinal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .busketFinal_button {
+        cursor: pointer;
+        background-color: #33A9FF;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        outline: none;
+        color: #fff;
+
+        &:hover {
+            background-color: #1e77b7;
+        }
+    }
+}

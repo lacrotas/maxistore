@@ -1,0 +1,39 @@
+.busketItem {
+    width: calc(100% - 40px);
+    background-color: #fff;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 10px;
+    .busket_container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        .busket_counter {
+            display: flex;
+            align-items: center;
+            margin: 0;
+            .counter_paragraph{
+                margin: 10px;
+            }
+            .counter_button {
+                outline: none;
+                border: none;
+                background-color: rgba(0, 0, 0, 0);
+                font-size: 25px;
+            }
+        }
+        .container_status{
+            margin: 0;
+            color: #02B114;
+        }
+    }
+    .busketItem_price{
+        width: 130px;
+    }
+    .busket_cross{
+        margin-bottom: 50px;
+    }
+}

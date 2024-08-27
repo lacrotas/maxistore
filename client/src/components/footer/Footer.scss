@@ -1,0 +1,43 @@
+.footer {
+    background-color: #292D32;
+    padding: 30px 50px;
+
+    .footer_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #fff;
+
+        .container_links,
+        .container_contact {
+            color: #fff;
+            width: 218px;
+
+            .contact_item,
+            .links_item,
+            .contact_label {
+                margin: 10px 0;
+            }
+            .links_item:hover{
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+
+        .container_contact {
+            text-align: right;
+        }
+
+        .container_image {
+            width: 93px;
+            height: 93px;
+        }
+    }
+
+    .footer_copyright {
+        text-align: center;
+        color: #fff;
+        margin: 20px 0 0 0;
+    }
+}

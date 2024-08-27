@@ -1,0 +1,56 @@
+.contact {
+    position: relative;
+    z-index: 30;
+    width: calc(93% - 100px);
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    .contacts_left {
+        .contacts_label {
+            margin: 0;
+        }
+        .left_social {
+            margin-top: 50px;
+            .social_image {
+                width: 50px;
+                height: 50px;
+                margin-left: 20px;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:hover {
+                    transform: scale(1.1);
+                    transition: all 0.3s ease-in-out;
+                }
+            }
+        }
+
+        .left_button {
+            margin-top: 100px;
+            padding: 10px 20px;
+            background-color: #33A9FF;
+            width: 190px;
+            border-radius: 10px;
+
+            .left_button_text {
+                color: #fff;
+            }
+        }
+    }
+
+    .contacts_right {
+        .contacts_label {
+            margin: 0;
+        }
+
+        .right_map {
+            width: 600px;
+            height: 280px;
+        }
+    }
+}

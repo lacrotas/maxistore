@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #F5F5F5;
+}
+
+@font-face {
+  font-family: "Jura_bold";
+  src: url("./assets/fonts/Jura-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat_bold";
+  src: url("./assets/fonts/Montserrat-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Montserrat_reg";
+  src: url("./assets/fonts/Montserrat-Regular.ttf");
+}
+
+// fonts
+.jura_bold {
+  font-family: "Jura_bold";
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.monserat_bold {
+  font-family: "Montserrat_bold";
+}
+
+.tiny_p {
+  font-family: "Jura_bold";
+  font-size: 16px;
+}
+
+.medium_p {
+  font-family: "Montserrat_reg";
+  font-size: 24px;
+}
+
+.small_p {
+  font-family: "Montserrat_reg";
+  font-size: 20px;
+}
+
+.large_p {
+  font-size: 24px;
+}
+
+.small_h {
+  font-family: "Montserrat_bold";
+  font-size: 24px;
+}
+
+.medium_h {
+  font-family: "Montserrat_bold";
+  font-size: 32px;
+}
+
+.large_h {
+  font-family: "Montserrat_bold";
+  font-size: 46px;
+}
+
+// buttons
+.button {
+  padding: 15px 20px;
+  border-radius: 10px;
+  border: none;
+}

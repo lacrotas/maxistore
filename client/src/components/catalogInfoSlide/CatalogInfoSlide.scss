@@ -1,0 +1,68 @@
+.catalogSlide {
+    top: 60px;
+    height: calc(100vh - 70px);
+    position: fixed;
+    background-color: #fff;
+    padding-top: 40px;
+    z-index: 5;
+
+    .catalogSlide_mainCategory {
+        width: 600px;
+        padding-right: 0;
+
+        .mainCategory_label {
+            width: 240px;
+            margin: 0;
+            padding: 10px;
+            padding-right: 0;
+
+            &:hover {
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+
+        .mainCategory_label.active {
+            font-weight: bold;
+            border-bottom: 1px solid #B1B1B1;
+        }
+
+        .right_block {
+            left: 250px;
+            position: absolute;
+            top: 0px;
+            border-left: 1px solid #B1B1B1;
+            padding-top: 50px;
+            padding-left: 20px;
+            height: 100%;
+
+            .category_label {
+                margin: 0;
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            .podCategory_label {
+                cursor: pointer;
+            }
+
+            .right_block_category {
+                display: none;
+            }
+
+            .right_block_category.active {
+                display: block;
+            }
+        }
+    }
+}
+
+.catalogSlide_close {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba($color: #000000, $alpha: 0.7);
+    z-index: 2;
+}
