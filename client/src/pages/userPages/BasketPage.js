@@ -5,12 +5,12 @@ import Footer from "../../components/footer/Footer";
 
 function BasketPage() {
     return (
-        <div className="basket">
-            <Headers />
+        <>
+            <Headers isAdminHeader={true} />
             <HistoryCatalog path={[{ name: "Главная" }, { name: "Корзина" }]} />
             <Busket />
             <Footer />
-        </div>
+        </>
     )
 }
 

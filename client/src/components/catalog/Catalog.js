@@ -5,14 +5,26 @@ import TrenImage from "../../assets/images/category/tren.png";
 import BatutImage from "../../assets/images/category/batut.png";
 import MassImage from "../../assets/images/category/mass.png";
 import TenisImage from "../../assets/images/category/tenis.png";
+import { fetchAllMainKategory } from "../../http/KategoryApi";
+import { fetchAllItemByMainKategoryId } from "../../http/itemApi"
+import { useState, useEffect } from "react";
 
 export default function Catalog() {
-    const category = [
-        { image: TrenImage, label: "Тренажеры", item_counter: 100 },
-        { image: TenisImage, label: "Теннисные столы", item_counter: 135 },
-        { image: BatutImage, label: "Батуты", item_counter: 155 },
-        { image: MassImage, label: "Массажные кресла", item_counter: 25 }
-    ]
+    const [allKategory, setAllKategory] = useState([]);
+    const [itemsCounter, setItemsCounter] = useState([]);
+
+    useEffect(() => {
+        fetchAllMainKategory().then(data => {
+            setAllKategory(data);
+            data.map((item) => {
+                fetchAllItemByMainKategoryId(item.id).then(data => {
+                    const itemsLengh = data.length;
+                    setItemsCounter(prevState => [...prevState, itemsLengh]);
+                })
+            })
+        })
+    }, [])
+   
     return (
         <section className="catalog_section">
             <div className="catalog_container">
@@ -23,8 +35,8 @@ export default function Catalog() {
                     <p className="button_text medium_p">В каталог</p>
                 </div>
             </div>
-            {category.map((item, index) => (
-                <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.label} item_counter={item.item_counter} />
+            {allKategory.map((item, index) => (
+                <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.name} item_counter={itemsCounter[index]} />
             ))}
         </section>
     );

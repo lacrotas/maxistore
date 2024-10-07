@@ -37,6 +37,13 @@ class itemController {
         );
         return res.json(kategory);
     }
+    async getAllItemsByMainKategoryId(req, res) {
+        const { mainKategoryId } = req.params
+        const kategory = await Item.findAll(
+            { where: { mainKategoryId } }
+        );
+        return res.json(kategory);
+    }
     async getAllItemsByKategoryId(req, res) {
         const { kategoryId } = req.params
         const kategory = await Item.findAll(

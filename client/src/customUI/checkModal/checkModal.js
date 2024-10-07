@@ -2,12 +2,14 @@ import "./checkModal.scss";
 import CustomButton from "../customButton/CustomButton";
 import { useState } from "react";
 
-function CheckModal({ text, setIsCheck }) {
+function CheckModal({ isActiveIndex, text, setIsCheck, localBusket }) {
 
-    const [isOk, setIsOk] = useState(false);
 
-    function setAnswerAndClose(value){
-        setIsOk(value);
+    function setAnswerAndClose(value) {
+        if (value) {
+            localStorage.removeItem("maxiBusket");
+            localStorage.setItem("maxiBusket", localBusket.splice(isActiveIndex, 1));
+        }
         setIsCheck(false);
     }
 

@@ -44,7 +44,7 @@ function ItemFullPreview() {
                 setCurrentMainImage(data.image);
                 const newElement = data.image;
                 setImageLenght(prevState => [...prevState, newElement]);
-                fetchAllItemImageByItemId(data.id).then(imageData => {
+                fetchAllItemImageByItemId(data.main).then(imageData => {
                     imageData.map((item) => {
                         const newElement = item.image; // Или любое другое значение, которое нужно добавить
                         setImageLenght(prevState => [...prevState, newElement]);

@@ -34,6 +34,14 @@ export const fetchAllItemByKategoryId = async (id) => {
         return data;
     }
 }
+export const fetchAllItemByMainKategoryId = async (id) => {
+    if (!id) {
+        return null;
+    } else {
+        const { data } = await $host.get('api/itemRouter/getAllByMainKategoryId/' + id);
+        return data;
+    }
+}
 export const fetchAllItemByPodKategoryId = async (id) => {
     if (!id) {
         return null;
