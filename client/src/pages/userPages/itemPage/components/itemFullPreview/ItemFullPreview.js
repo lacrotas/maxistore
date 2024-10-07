@@ -19,9 +19,9 @@ function ItemFullPreview() {
     const { id } = useParams();
     let isMounted = true;
 
-    const [imageLenght, setImageLenght] = useState([]);
     const [isAlertActive, setIsAlertActive] = useState(false);
 
+    const [imageLenght, setImageLenght] = useState([]);
     const [currentMainImage, setCurrentMainImage] = useState("");
     const [isDescriptionOpen, setIsDescriptionOpen] = useState(true);
     const [selectedItemImage, setSelectedItemImage] = useState(0);
@@ -44,9 +44,9 @@ function ItemFullPreview() {
                 setCurrentMainImage(data.image);
                 const newElement = data.image;
                 setImageLenght(prevState => [...prevState, newElement]);
-                fetchAllItemImageByItemId(data.main).then(imageData => {
+                fetchAllItemImageByItemId(data.id).then(imageData => {
                     imageData.map((item) => {
-                        const newElement = item.image; // Или любое другое значение, которое нужно добавить
+                        const newElement = item.image;
                         setImageLenght(prevState => [...prevState, newElement]);
                     })
                 })
