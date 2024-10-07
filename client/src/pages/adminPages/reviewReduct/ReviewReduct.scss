@@ -1,16 +1,44 @@
 .review_reduct {
-    width: calc(100% - 140px);
+    width: calc(100% - 100px);
     margin-left: 50px;
-    background-color: #fff;
-    padding: 10px 20px;
-    border-radius: 10px;
+
+    .review_reduct_header {
+        display: flex;
+
+        .reduct_header_paragraph {
+            margin-right: 20px;
+            padding-bottom: 5px;
+            cursor: pointer;
+
+            &:hover {
+                border-bottom: 1px solid #b3b2b2;
+            }
+        }
+
+        .reduct_header_paragraph.active {
+            border-bottom: 1px solid #000;
+        }
+    }
+
+    .reduct_header_container {
+        display: none;
+    }
+
+    .reduct_header_container.active {
+        display: block;
+    }
 
     .review_reduct_item {
+        margin-top: 10px;
+        background-color: #fff;
+        padding: 10px 20px;
+        border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 }
-.review_reduct_paragraph{
+
+.review_reduct_paragraph {
     text-align: center;
 }
