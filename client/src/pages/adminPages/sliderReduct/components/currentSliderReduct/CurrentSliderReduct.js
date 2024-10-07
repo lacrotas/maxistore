@@ -4,11 +4,13 @@ import { useState } from "react";
 import CustomButton from "../../../../../customUI/customButton/CustomButton";
 import { useLocation } from 'react-router-dom';
 import { postSlider, updateOneSlider, deleteOneSlider } from "../../../../../http/SliderApi";
+import { LOGIN_ROUTE, SLIDER_REDUCT_ROUTE } from "../../../../appRouter/Const";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function CurrentSliderReduct() {
     const location = useLocation();
     const { label, image, description, link, id } = location.state || {};
-
+    const history = useHistory();
 
     const [newLabel, setLabel] = useState(label || "");
     const [newImage, setImage] = useState(image || UpdateImage);
@@ -32,18 +34,38 @@ function CurrentSliderReduct() {
         formData.append('link', newLink);
         formData.append('image', imageFile);
         if (id) {
-            updateOneSlider(id, formData);
-            alert("Сообщество успешно отредактированно");
-            window.location.reload();
+            updateOneSlider(id, formData).then(data => {
+                if (data) {
+                    alert("Слайдер успешно отредактирован");
+                    history.push(SLIDER_REDUCT_ROUTE);
+                } else {
+                    alert("Ваша ссесия завершенна, авторизуйтесь повторно");
+                    history.push(LOGIN_ROUTE);
+                }
+            })
+
         } else {
-            postSlider(formData);
-            alert("Слайдер успешно добавлен");
-            window.location.reload();
+            postSlider(formData).then(data => {
+                if (data) {
+                    alert("Слайдер успешно добавлен");
+                    history.push(SLIDER_REDUCT_ROUTE);
+                } else {
+                    alert("Ваша ссесия завершенна, авторизуйтесь повторно");
+                    history.push(LOGIN_ROUTE);
+                }
+            })
         }
     }
     function deleteSlider() {
-        deleteOneSlider(id);
-        alert("Слайдер успешно удален");
+        deleteOneSlider(id).then(data => {
+            if (data) {
+                alert("Слайдер успешно удален");
+                history.push(SLIDER_REDUCT_ROUTE);
+            } else {
+                alert("Ваша ссесия завершенна, авторизуйтесь повторно");
+                history.push(LOGIN_ROUTE);
+            }
+        })
     }
 
     return (

@@ -20,12 +20,16 @@ export const updateOneSlider = async (id, slider) => {
         return null;
     } else {
         const token = localStorage.getItem('token');
-        const { data } = await $host.put('api/sliderRouter/update/' + id, slider, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
-        return data;
+        try {
+            const { data } = await $host.put('api/sliderRouter/update/' + id, slider, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return data;
+        } catch (e) {
+            return false;
+        }
     }
 }
 
@@ -34,13 +38,17 @@ export const deleteOneSlider = async (id) => {
         return null;
     } else {
         const token = localStorage.getItem('token');
-        const { data } = await $host.delete('api/sliderRouter/delete/' + id, {
-            headers: {
-                Authorization: `Bearer ${token}`
+        try {
+            const { data } = await $host.delete('api/sliderRouter/delete/' + id, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
+            )
+            return data;
+        } catch (e) {
+            return false;
         }
-        )
-        return data;
     }
 }
 
