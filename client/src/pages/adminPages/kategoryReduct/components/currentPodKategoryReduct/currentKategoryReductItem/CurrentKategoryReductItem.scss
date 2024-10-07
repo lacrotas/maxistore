@@ -1,0 +1,11 @@
+.current_kategory_reduct_item{
+    display: flex;
+    justify-content: space-between;
+    .item_container{
+        display: flex;
+        align-items: center;
+        div{
+            margin-left: 20px;
+        }
+    }
+}

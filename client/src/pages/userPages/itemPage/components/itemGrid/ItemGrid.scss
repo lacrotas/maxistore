@@ -1,0 +1,19 @@
+.item_grid_container {
+    width: calc(100%);
+    margin-left: 20px;
+
+    .grid_container {
+        display: flex;
+        background-color: #fff;
+        padding: 5px 20px;
+        border-radius: 10px;
+        .container_paragraph {
+            margin-left: 20px;
+            color: #000;
+        }
+
+        .container_paragraph-unactive {
+            color: #B1B1B2;
+        }
+    }
+}

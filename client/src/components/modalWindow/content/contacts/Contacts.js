@@ -4,7 +4,7 @@ import ViberImage from "../../../../assets/images/socialLinks/basil_viber-solid.
 import VkImage from "../../../../assets/images/socialLinks/entypo-social_vk-with-circle.png";
 import InstagramImage from "../../../../assets/images/socialLinks/skill-icons_instagram.png";
 
-function Contacts() {
+function Contacts({ closeModal }) {
     return (
         <div className="contact">
             <div className="contacts_left">
@@ -20,7 +20,7 @@ function Contacts() {
                     <img className="social_image" src={ViberImage} about="viber" />
                 </div>
                 <div className="left_button">
-                    <a className="left_button_text small_p">
+                    <a onClick={() => closeModal(false)} href="#qwestion" className="left_button_text small_p">
                         Частые вопросы
                     </a>
                 </div>

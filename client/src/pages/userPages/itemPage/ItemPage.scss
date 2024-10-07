@@ -1,0 +1,20 @@
+.itemPage_fiter_grid_container {
+    display: flex;
+    justify-content: space-between;
+    width: calc(100% - 100px);
+    margin-left: 50px;
+    margin-bottom: 10px;
+
+    .itemPage_filter_container {
+        width: 300px;
+        min-height: calc(100vh - 240px);
+        display: flex;
+        flex-direction: column;
+        .custom_button {
+            margin-top: auto; 
+            bottom: 0;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    }
+}

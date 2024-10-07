@@ -1,0 +1,91 @@
+.qwestionReduct_add_container {
+    width: calc(100% - 100px);
+    margin-left: 50px;
+    text-align: center;
+    margin-top: 50px;
+    .container_item {
+        width: calc(100% - 40px);
+        outline: none;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+}
+.qwestion_reduct {
+    background-color: #fff;
+    padding: 50px;
+    margin-top: 20px;
+
+    .qwestion_list {
+        text-decoration: none;
+        list-style: none;
+        padding: 0;
+
+        .list_item.unactive {
+            .qwestion_description {
+                transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+                max-height: 0;
+                overflow: hidden;
+            }
+
+            .qwestion_header {
+                .header_image-closed {
+                    display: block;
+                }
+
+                .header_image-open {
+                    display: none;
+                }
+            }
+        }
+
+        .list_item.active {
+            .qwestion_description {
+                transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+                max-height: 200px;
+                padding: 10px 0;
+            }
+
+            .qwestion_header {
+
+                .header_image-closed {
+                    display: none;
+                }
+
+                .header_image-open {
+                    display: block;
+                }
+            }
+        }
+
+        .list_item {
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+
+            .qwestion_header {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                cursor: pointer;
+
+                .header_image {
+                    width: 30px;
+                    height: 30px;
+                }
+
+                .header_label {
+                    margin: 10px;
+                    margin-left: 15px;
+                }
+            }
+
+            .qwestion_description {
+                margin-left: 45px;
+
+                .description_text {
+                    color: #757575;
+                }
+            }
+        }
+    }
+}

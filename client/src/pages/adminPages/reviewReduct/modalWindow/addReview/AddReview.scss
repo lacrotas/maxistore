@@ -1,0 +1,29 @@
+.modal_add_review {
+    width: calc(100% - 200px);
+    position: relative;
+    z-index: 5;
+    background-color: #fff;
+    border-radius: 20px;
+    top: 150px;
+    padding: 50px;
+
+    .review_textarea {
+        height: 200px;
+    }
+
+    .add_review_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .add_review {
+            display: flex;
+            align-items: center;
+
+            .add_review_paragraph {
+                margin-right: 20px;
+            }
+        }
+
+    }
+}

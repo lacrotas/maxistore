@@ -1,0 +1,22 @@
+.slider_item--short {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding: 0 20px;
+    background-color: #fff;
+    border-radius: 10px;
+
+    .short_container {
+        display: flex;
+        align-items: center;
+        .short_container_label{
+            margin-left: 20px;
+        }
+    }
+
+    .slider_item--image {
+        width: 100px;
+        height: 100px;
+    }
+}

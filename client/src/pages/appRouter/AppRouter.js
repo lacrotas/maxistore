@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { publicRoutes } from './Routes';
+import { publicRoutes, adminRoutes } from './Routes';
 // import { useContext } from 'react';
 // import { Context } from '../../index';
 
@@ -10,6 +10,9 @@ function AppRouter() {
             {/* {user.isAuth && adminRoutes.map(({ path, Component }) =>
                 <Route key={path} path={path} component={Component} exact />
             )} */}
+            {adminRoutes.map(({ path, Component }) =>
+                <Route key={path} path={path} component={Component} exact />
+            )}
             {publicRoutes.map(({ path, Component }) =>
                 <Route key={path} path={path} component={Component} exact />
             )}

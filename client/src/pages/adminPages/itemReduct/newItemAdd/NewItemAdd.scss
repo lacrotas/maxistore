@@ -1,0 +1,117 @@
+.newItem {
+    width: calc(100% - 100px);
+    margin-left: 50px;
+
+    .newItem_input {
+        margin-top: 50px;
+        width: calc(100% - 40px);
+        color: #fff;
+        outline: none;
+        border: none;
+        padding: 20px;
+        border-radius: 20px;
+        color: #000;
+    }
+
+    .newItem_container {
+        display: flex;
+        width: 100%;
+
+        .container_image {
+            width: 50%;
+            display: flex;
+            height: 400px;
+            align-items: center;
+            margin-top: 30px;
+
+            .image_container--left {
+                width: 100px;
+                padding: 10px;
+                height: 400px;
+                text-align: center;
+                overflow: auto;
+                overflow-x: hidden;
+
+                .image_image--main {
+                    width: 100px;
+                    height: 100px;
+                }
+
+                .image_image--plus {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+
+            .container_image--main {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        .container_description {
+            width: 50%;
+
+            .description_paragraph {}
+
+            .description_textarea {
+                height: 320px;
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    }
+
+    .newItem_chooseKategory {
+        .newItem_chooseKategory_rechoose {
+            display: flex;
+            align-items: center;
+
+            .rechoose_paragraph {
+                margin-right: 20px;
+            }
+        }
+
+        .mainKategory_container {
+            cursor: pointer;
+
+            .container_header {
+                display: flex;
+                align-items: center;
+            }
+
+            .container_description {}
+        }
+
+        .mainKategory_container.active {
+            .container_header {
+                .header_image-close {
+                    display: none;
+                }
+            }
+        }
+
+        .mainKategory_container.unactive {
+            .container_header {
+                .header_image-open {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.newItem_sum {
+    width: calc(100% - 100px);
+    background-color: #fff;
+    padding: 20px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .newItem_sum {
+        outline: none;
+        border: none;
+        width: 80%;
+    }
+}

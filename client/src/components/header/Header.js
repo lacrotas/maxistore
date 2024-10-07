@@ -10,11 +10,13 @@ import CatalogInfoSlide from "../catalogInfoSlide/CatalogInfoSlide";
 import { NavLink } from "react-router-dom";
 import { MAIN_ROUTE, BUSKET_ROUTE } from "../../pages/appRouter/Const";
 
-export default function Headers() {
+
+export default function Headers({ isAdminHeader }) {
 
     const [isModalActive, setIsModalActive] = useState(false);
     const [modalType, setModalType] = useState("");
     const [isCategotyActive, setIsCategoryActive] = useState(false);
+    const [isBurgerOpen, setIsBurgerOpen] = useState(false);
 
     function openModal(type) {
         setIsModalActive(true);
@@ -32,24 +34,28 @@ export default function Headers() {
         };
     }
     )
-
+    function handleBurgerClose(myFunck, value) {
+        setIsBurgerOpen(false);
+        myFunck(value);
+    }
     return (
         <>
             {isModalActive ? <ModalWindow setIsModalActive={setIsModalActive} type={modalType} /> : <></>}
-            <header className="header">
-                <div className="header_upper">
-                    <p className="upper_text tiny_p" onClick={() => openModal("contacts")}>Контакты</p>
-                    <p className="upper_text tiny_p" onClick={() => openModal("delivery")}>Доставка</p>
-                    <p className="upper_text tiny_p" onClick={() => openModal("delivery")}>Оплата</p>
-                </div>
-            </header>
+            {!isAdminHeader ?
+                <header className="header">
+                    <div className="header_upper">
+                        <p className="upper_text tiny_p" onClick={() => openModal("contacts")}>Контакты</p>
+                        <p className="upper_text tiny_p" onClick={() => openModal("delivery")}>Доставка</p>
+                        <p className="upper_text tiny_p" onClick={() => openModal("delivery")}>Оплата</p>
+                    </div>
+                </header> : <></>}
             <header className="header_container">
                 <div className="header_category" onClick={() => setIsCategoryActive(true)}>
-                    <img src={ListImage} alt="list" />
-                    <p className="category_text medium_p jura_bold">Категории</p>
+                    <img className="category_image" src={ListImage} alt="list" />
+                    <p className="category_text medium_p">Категории</p>
                 </div>
                 <NavLink to={MAIN_ROUTE}>
-                    <p className="category_text large_p jura_bold">MAXISTORE</p>
+                    <p className="category_text large_p">MAXISTORE</p>
                 </NavLink>
                 <div className="header_buttons">
                     <img className="buttons_image" onClick={() => openModal("search")} src={SearchImage} alt="search_Image" />
@@ -59,7 +65,21 @@ export default function Headers() {
                         <img className="buttons_image" src={BasketImage} alt="basket_Image" />
                     </NavLink>
                 </div>
+                <div className="header_buttons--headen">
+                    <img className="buttons_image" onClick={() => openModal("search")} src={SearchImage} alt="search_Image" />
+                    <img className="buttons_image" onClick={() => setIsBurgerOpen(!isBurgerOpen)} src={ListImage} alt="truck_Image" />
+                </div>
             </header >
+            <div className={`burger_menu ${isBurgerOpen ? "active" : "unactive"}`}>
+                <p onClick={() => handleBurgerClose(setIsCategoryActive, true)} className="medium_p">Категории</p>
+                <p onClick={() => handleBurgerClose(openModal, "delivery")} className="medium_p">Доставка</p>
+                <p onClick={() => handleBurgerClose(openModal, "delivery")} className="medium_p">Оплата</p>
+                <p onClick={() => handleBurgerClose(openModal, "contacts")} className="medium_p">Контакты</p>
+                <NavLink to={BUSKET_ROUTE}>
+                    <p className="medium_p">Корзина</p>
+                </NavLink>
+
+            </div>
             {isCategotyActive ? <CatalogInfoSlide setIsCategoryActive={setIsCategoryActive} /> : <></>}
         </>
     )

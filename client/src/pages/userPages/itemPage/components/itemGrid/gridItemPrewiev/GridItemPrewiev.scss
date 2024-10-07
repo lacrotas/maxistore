@@ -1,0 +1,31 @@
+.grid_item_prewiev {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+    height: 350px;
+    background-color: #fff;
+    border-radius: 10px;
+
+    .item_prewiev_container {
+        width: 300px;
+        height: 230px;
+
+        .item_prewiev_image {
+            width: 300px;
+        }
+    }
+
+    .item_prewiev_paragraph {
+        margin: 10px;
+    }
+
+    .item_prewiev_rating {
+        display: flex;
+        align-items: center;
+
+        .rating_paragraph {
+            margin: 0;
+        }
+    }
+}

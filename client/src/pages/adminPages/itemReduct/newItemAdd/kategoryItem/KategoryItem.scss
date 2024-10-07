@@ -1,0 +1,20 @@
+.kategoryItem {
+    display: flex;
+    align-items: center;
+    margin-left: 50px;
+    .kategoryItem_paragraph{
+        margin-right: 20px;
+    }
+}
+
+.kategoryItem.unactive {
+    .kategoryItem--open {
+        display: none;
+    }
+}
+
+.kategoryItem.active {
+    .kategoryItem--close {
+        display: none;
+    }
+}

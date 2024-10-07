@@ -7,7 +7,7 @@ function BasketPage() {
     return (
         <div className="basket">
             <Headers />
-            <HistoryCatalog path={["Главная","Корзина"]}/>
+            <HistoryCatalog path={[{ name: "Главная" }, { name: "Корзина" }]} />
             <Busket />
             <Footer />
         </div>

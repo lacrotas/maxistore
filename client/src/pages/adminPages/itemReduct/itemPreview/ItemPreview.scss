@@ -1,0 +1,21 @@
+.item_preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 40px);
+    padding: 10px 20px;
+    background-color: #fff;
+    border-radius: 20px;
+    margin-top: 20px;
+
+    .item_preview_container {
+        display: flex;
+        align-items: center;
+
+        .container_image {
+            width: 100px;
+            height: 100px;
+            margin-right: 20px;
+        }
+    }
+}

@@ -1,0 +1,16 @@
+.review_reduct {
+    width: calc(100% - 140px);
+    margin-left: 50px;
+    background-color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+
+    .review_reduct_item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+.review_reduct_paragraph{
+    text-align: center;
+}

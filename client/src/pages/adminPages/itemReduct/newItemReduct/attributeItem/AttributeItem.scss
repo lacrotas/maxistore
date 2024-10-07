@@ -1,0 +1,28 @@
+.attributeItem {
+    .attributeItem_description {
+        display: flex;
+        align-items: center;
+        margin-left: 40px;
+
+        .description_image-close,
+        .description_image-open {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+
+    .attributeItem_description.active {
+        .description_image-close {
+            display: none;
+        }
+
+    }
+
+    .attributeItem_description.unactive {
+
+        .description_image-open {
+            display: none;
+        }
+    }
+}

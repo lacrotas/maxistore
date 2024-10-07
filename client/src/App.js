@@ -1,5 +1,3 @@
-// import MainPage from "./pages/userPages/MainPage";
-// import BasketPage from "./pages/userPages/BasketPage";
 import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./pages/appRouter/AppRouter";
 

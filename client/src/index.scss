@@ -25,6 +25,13 @@ body {
   src: url("./assets/fonts/Montserrat-Regular.ttf");
 }
 
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 // fonts
 .jura_bold {
   font-family: "Jura_bold";
@@ -44,9 +51,28 @@ a {
   font-size: 16px;
 }
 
+.jura_semi-medium_p {
+  font-family: "Jura_bold";
+  font-size: 20px;
+}
+
+.jura_medium_bold {
+  font-family: "Jura_bold";
+  font-size: 24px;
+}
+
+.super_large_p {
+  font-family: "Jura_bold";
+  font-size: 30px;
+}
+
 .medium_p {
   font-family: "Montserrat_reg";
   font-size: 24px;
+}
+.description_p {
+  font-family: "Montserrat_reg";
+  font-size: 18px;
 }
 
 .small_p {
@@ -56,6 +82,7 @@ a {
 
 .large_p {
   font-size: 24px;
+  font-family: "Jura_bold";
 }
 
 .small_h {
@@ -78,4 +105,57 @@ a {
   padding: 15px 20px;
   border-radius: 10px;
   border: none;
+}
+
+@media screen and (max-width: 900px) {
+  .small_h {
+    font-size: 20px;
+  }
+
+  .small_p {
+    font-size: 16px;
+  }
+
+  .medium_p {
+    font-size: 20px;
+  }
+
+  .large_p {
+    font-size: 20px;
+  }
+
+  .tiny_p {
+    font-size: 14px;
+  }
+  .medium_h{
+    font-size: 28px;
+  }
+  .jura_semi-medium_p{
+    font-size: 16px;
+  }
+  .description_p{
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .medium_p {
+    font-size: 16px;
+  }
+
+  .small_h {
+    font-size: 16px;
+  }
+
+  .small_p {
+    font-size: 14px;
+  }
+
+  .large_p {
+    font-size: 16px;
+  }
+
+  .tiny_p {
+    font-size: 14px;
+  }
 }
