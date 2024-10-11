@@ -12,7 +12,7 @@ import ItemPreview from "./itemPreview/ItemPreview";
 
 function ItemReduct() {
     const [itemName, setItemName] = useState("");
-
+    const [isAnythingFound, setIsAnythingFound] = useState(false);
     const [itemsArr, setItemsArr] = useState([]);
 
     useEffect(() => {
@@ -20,6 +20,18 @@ function ItemReduct() {
             setItemsArr(data);
         })
     }, []);
+
+    useEffect(() => {
+        const found = itemsArr.some(item => filterItemsByName(itemName, item.name));
+        setIsAnythingFound(found);
+    }, [itemName, itemsArr]);
+
+    function filterItemsByName(str1, str2) {
+        const lowerStr1 = str1.toLowerCase();
+        const lowerStr2 = str2.toLowerCase();
+
+        return lowerStr1.includes(lowerStr2) || lowerStr2.includes(lowerStr1);
+    }
 
     return (
         <>
@@ -36,9 +48,13 @@ function ItemReduct() {
                     </NavLink>
                 </div>
                 <div>
-                    {itemsArr.map((item) => (
-                        <ItemPreview item={item} />
-                    ))}
+                    {
+                        isAnythingFound ? itemsArr.map((item) => (
+                            <ItemPreview item={item} isHidden={filterItemsByName(itemName, item.name)} />
+                        ))
+                            :
+                            <p className="item_reduct tiny_p">Пока товаров по заданным критериям нет</p>
+                    }
                 </div>
             </div>
             <Footer />

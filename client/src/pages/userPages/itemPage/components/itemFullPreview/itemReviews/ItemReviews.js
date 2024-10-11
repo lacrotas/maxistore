@@ -4,11 +4,14 @@ import Rating from "../../../../../../components/rating/Rating";
 import ProgressBar from "./progressBar/ProgressBar";
 import CustomButton from "../../../../../../customUI/customButton/CustomButton";
 import ModalWindow from "../../../../../../components/modalWindow/ModalWindow";
+import { fetchReviewByItemIdAndIsShowed } from "../../../../../../http/reviewApi";
 
-function ItemReviews({ review, reviewNumber, itemId }) {
+
+function ItemReviews({ itemId }) {
     const [ratingArr, setRaitingArr] = useState([1, 2, 3, 4, 5]);
-    const [averageMark, setAverageMark] = useState(setRaiting);
-    const [procentMark, setProcentMark] = useState(setProcentRaiting);
+    const [review, setReview] = useState([]);
+    const [averageMark, setAverageMark] = useState(0);
+    const [procentMark, setProcentMark] = useState(0);
 
     const [isModalActive, setIsModalActive] = useState(false);
 
@@ -16,10 +19,10 @@ function ItemReviews({ review, reviewNumber, itemId }) {
         let sum = 0;
         if (review) {
             review.map((item) => {
-                sum += item.mark;
+                sum += Number(item.mark);
             })
         }
-        return (sum / Number(reviewNumber));
+        return (sum / Number(review.length));
     }
 
     function setProcentRaiting() {
@@ -48,17 +51,22 @@ function ItemReviews({ review, reviewNumber, itemId }) {
             })
         }
         let raitingArr = [
-            { mark: oneMark, procentMark: Math.round(((oneMark / Number(reviewNumber)) * 100)) },
-            { mark: twoMark, procentMark: Math.round(((twoMark / Number(reviewNumber)) * 100)) },
-            { mark: threeMark, procentMark: Math.round(((threeMark / Number(reviewNumber)) * 100)) },
-            { mark: fourMark, procentMark: Math.round(((fourMark / Number(reviewNumber)) * 100)) },
-            { mark: fiveMark, procentMark: Math.round(((fiveMark / Number(reviewNumber)) * 100)) },
+            { mark: oneMark, procentMark: Math.round(((oneMark / Number(review.length)) * 100)) },
+            { mark: twoMark, procentMark: Math.round(((twoMark / Number(review.length)) * 100)) },
+            { mark: threeMark, procentMark: Math.round(((threeMark / Number(review.length)) * 100)) },
+            { mark: fourMark, procentMark: Math.round(((fourMark / Number(review.length)) * 100)) },
+            { mark: fiveMark, procentMark: Math.round(((fiveMark / Number(review.length)) * 100)) },
         ];
 
         setRaitingArr(raitingArr)
 
-        return (Math.round(((sum / Number(reviewNumber)) * 100)));
+        return (Math.round(((sum / Number(review.length)) * 100)));
     }
+
+    useEffect(() => {
+        fetchReviewByItemIdAndIsShowed(itemId).then((data) => setReview(data));
+    }, []);
+
     useEffect(() => {
         setAverageMark(setRaiting);
         setProcentMark(setProcentRaiting);
@@ -89,7 +97,7 @@ function ItemReviews({ review, reviewNumber, itemId }) {
                                 <p className="procent_paragraph tiny_p">Рекомендуют этот товар</p>
                             </div>
                             <div className="section_header_marks">
-                                <p className="mark_paragragraph tiny_p">{reviewNumber} {`${getWordEnding(reviewNumber, endings)}`}</p>
+                                <p className="mark_paragragraph tiny_p">{review.length} {`${getWordEnding(review.length, endings)}`}</p>
                                 <Rating rating={averageMark} />
                                 <p className="mark_paragragraph tiny_p">{averageMark == Math.round(averageMark) ? averageMark + ".0" : averageMark}</p>
                             </div>
@@ -117,10 +125,10 @@ function ItemReviews({ review, reviewNumber, itemId }) {
                         <div className="section_description">
                             {review.map((item, index) => (
                                 <div className="section_description_container" key={index}>
-                                    <p className="description_paragraph medium_p">{item.label}</p>
+                                    {/* <p className="description_paragraph medium_p">{item.label}</p> */}
                                     <div className="description_container">
                                         <Rating rating={item.mark} />
-                                        <p className="container_paragraph tiny_p">Обзор {item.Reviewdate}</p>
+                                        <p className="container_paragraph tiny_p">Отзыв {item.Reviewdate}</p>
                                     </div>
                                     <p className="jura_semi-medium_p ">{item.description}</p>
                                 </div>

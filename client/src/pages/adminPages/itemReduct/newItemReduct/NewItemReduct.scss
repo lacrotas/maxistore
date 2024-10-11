@@ -99,6 +99,23 @@
             }
         }
     }
+
+    .newItem_flex {
+        display: flex;
+
+        .flex_paragraph {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .flex_paragraph.active {
+            color: #447900;
+        }
+
+        .flex_paragraph.unactive {
+            color: #C50D0D;
+        }
+    }
 }
 
 .newItem_sum {
@@ -112,6 +129,6 @@
     .newItem_sum {
         outline: none;
         border: none;
-        width: calc(100% - 400px);
+        width: calc(100% - 520px);
     }
 }

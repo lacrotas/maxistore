@@ -149,7 +149,7 @@ function ItemFullPreview() {
                     </div>
                 </div>
             </div>
-            <ItemReviews itemId={item.id} reviewNumber={"1"} review={itemReviews} />
+            <ItemReviews itemId={id} reviewNumber={"1"} />
             <Footer />
         </>
     )

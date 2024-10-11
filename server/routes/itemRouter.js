@@ -10,6 +10,6 @@ router.get('/getAllByMainKategoryId/:mainKategoryId', itemController.getAllItems
 router.get('/getItemById/:id', itemController.getItemById);
 router.get('/getAllByPodKategoryId/:podKategoryId', itemController.getAllItemsByPodKategoryId);
 router.delete('/delete/:id', authenticateToken, itemController.deleteItemById);
-// router.put('/update/:id', authenticateToken, itemController.updateUser);
+router.put('/update/:id', authenticateToken, itemController.updateItemById);
 
 module.exports = router;

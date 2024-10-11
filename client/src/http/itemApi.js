@@ -55,7 +55,7 @@ export const deleteItemById = async (id) => {
         return null;
     } else {
         const token = localStorage.getItem('token');
-        const { data } = await $host.delete('api/attributeRouter/delete/' + id, {
+        const { data } = await $host.delete('api/itemRouter/delete/' + id, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -65,16 +65,16 @@ export const deleteItemById = async (id) => {
     }
 }
 
-// export const updateMainKategory = async (id, item) => {
-//     if (!id) {
-//         return null;
-//     } else {
-//         const token = localStorage.getItem('token');
-//         const { data } = await $host.put('api/mainKategoryRouter/update/' + id, item, {
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         })
-//         return data;
-//     }
-// }
+export const updateItemById = async (id, item) => {
+    if (!id) {
+        return null;
+    } else {
+        const token = localStorage.getItem('token');
+        const { data } = await $host.put('api/itemRouter/update/' + id, item, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        return data;
+    }
+}

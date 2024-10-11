@@ -6,7 +6,7 @@ import { postReview } from "../../../../http/reviewApi";
 import CustomAlert from "../../../customAlert/CustomAlert";
 
 function AddReview({ itemId }) {
-    const [itemLabel, setItemLabel] = useState("");
+    // const [itemLabel, setItemLabel] = useState("");
     const [itemDescription, setItemDescription] = useState("");
     const [itemRating, setItemRating] = useState("");
 
@@ -28,7 +28,7 @@ function AddReview({ itemId }) {
     }
 
     function postNewReview() {
-        postReview({ label: itemLabel, description: itemDescription, Reviewdate: getCurrentDate(), mark: String(itemRating + 1), itemId: itemId, isShowed: false }).then(data => {
+        postReview({ description: itemDescription, Reviewdate: getCurrentDate(), mark: String(itemRating + 1), itemId: itemId, isShowed: false }).then(data => {
             if (data) {
                 setIsAlertActive(true);
                 setAlertText("Ваш отзыв добавлен на проверку");
@@ -41,7 +41,7 @@ function AddReview({ itemId }) {
     return (
         <>{isAlertActive ? <CustomAlert text={alertText} setIsModalActive={closeArert} /> : <></>}
             <div className="modal_add_review">
-                <input className="custom_input tiny_p" onChange={(e) => setItemLabel(e.target.value)} value={itemLabel} type="text" placeholder={"Введите заголовок отзыва"} />
+                {/* <input className="custom_input tiny_p" onChange={(e) => setItemLabel(e.target.value)} value={itemLabel} type="text" placeholder={"Введите заголовок отзыва"} /> */}
                 <textarea className="custom_input review_textarea tiny_p" onChange={(e) => setItemDescription(e.target.value)} value={itemDescription} type="text" placeholder={"Введите описание отзыва"} />
                 <div className="add_review_container">
                     <div className="add_review">
