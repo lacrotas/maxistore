@@ -68,7 +68,7 @@ const Item = sequelize.define('item', {
     price: { type: DataTypes.STRING },
     isExist: { type: DataTypes.BOOLEAN },
     isShowed: { type: DataTypes.BOOLEAN },
-    description: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING(1000) },
     rating: { type: DataTypes.STRING },
     reviewNumber: { type: DataTypes.STRING },
 })
@@ -92,7 +92,7 @@ const Review = sequelize.define('review', {
     mark: { type: DataTypes.STRING },
     Reviewdate: { type: DataTypes.STRING },
     label: { type: DataTypes.STRING },
-    description: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING(2000) },
     isShowed: { type: DataTypes.BOOLEAN },
 })
 // relation between kategoryes

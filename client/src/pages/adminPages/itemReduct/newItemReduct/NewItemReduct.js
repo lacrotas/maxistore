@@ -21,6 +21,7 @@ function NewItemReduct() {
     const location = useLocation();
     const path = location.state?.path;
 
+    let isMonted = true;
     const [newItemName, setNewItemName] = useState(path.name || "");
     const [cost, setCost] = useState(path.price || "");
     const [description, setDescription] = useState(path.description || "");
@@ -55,22 +56,33 @@ function NewItemReduct() {
 
 
     useEffect(() => {
-        // Получаем все основные категории
-        fetchAllItemImageByItemId(path.id).then((data) => {
-            setImageLength(data);
-        });
-        fetchAllAttributeValuesByItemId(path.id).then((data) => {
-            setAttributesValues(data)
-        });
+        if (isMonted) {
+            // Получаем все основные категории
+            fetchAllItemImageByItemId(path.id).then((data) => {
+                setImageLength(data);
+            });
+            fetchAllAttributeValuesByItemId(path.id).then((data) => {
+                setAttributesValues(data)
+            });
 
-        if (path.podKategoryId == "undefined") {
-            fetchAllAttributeByKategoryId(path.kategoryId).then(data => {
-                setAttributes(data ||[]);
-            })
-        } else {
-            fetchAllAttributeByPodKategoryId(path.podKategoryId).then(data => {
-                setAttributes(data||[]);
-            })
+            if (path.podKategoryId == null) {
+                fetchAllAttributeByKategoryId(path.kategoryId).then(data => {
+                    setAttributes(data || []);
+                })
+            } else {
+                fetchAllAttributeByKategoryId(path.kategoryId).then(data => {
+                    setAttributes(data || [])
+                    fetchAllAttributeByPodKategoryId(path.podKategoryId).then(data => {
+                        if (data.length > 0) {
+                            data.map(item => {
+                                const newElement = item;
+                                setAttributes(prevState => [...prevState, newElement]);
+                            })
+                        }
+                    })
+                });
+            }
+            isMonted = false;
         }
     }, []);
 
@@ -86,6 +98,15 @@ function NewItemReduct() {
 
     const [newChoosenValueArr, setNewChoosenValueArr] = useState([]);
 
+    function findMissingAttributeIds(newChoosenValueArr, attibutesValues) {
+        const missingAttributes = newChoosenValueArr.filter(newChoosenValue =>
+            !attibutesValues.some(attributeValue =>
+                newChoosenValue.attributeId === attributeValue.attributeId
+            )
+        );
+
+        return missingAttributes.length > 0 ? missingAttributes : false;
+    }
 
     function updatenewItem() {
         const formData = new FormData();
@@ -124,6 +145,7 @@ function NewItemReduct() {
         })
 
         //update item attribute
+        const missingAttributeValue = findMissingAttributeIds(newChoosenValueArr, attibutesValues);
         newChoosenValueArr.map((newItem) => {
             attibutesValues.map((oldItem) => {
                 if (String(oldItem.attributeId) === String(newItem.attributeId)) {
@@ -131,6 +153,10 @@ function NewItemReduct() {
                     postItemAttribute({ itemId: path.id, attributeId: newItem.attributeId, valueId: newItem.valueId });
                 }
             })
+        })
+        missingAttributeValue.map(item=>{
+            postItemAttribute({ itemId: path.id, attributeId: item.attributeId, valueId: item.valueId });
+
         })
         // update item
         updateItemById(path.id, formData).then(data => {

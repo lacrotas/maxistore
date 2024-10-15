@@ -17,6 +17,7 @@ class itemController {
             } catch (e) {
                 console.log(e);
             }
+            console.log(podKategoryId);
             const kategory = await Item.create({
                 name: name, mainKategoryId: mainKategoryId, kategoryId: kategoryId, podKategoryId: podKategoryId || null,
                 image: fileName, price: price, isExist: true, isShowed: true, description: description, rating: "0",

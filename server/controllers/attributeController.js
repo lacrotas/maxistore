@@ -17,7 +17,7 @@ class attributeController {
     async getAllAttributeByKategoryId(req, res) {
         const { kategoryId } = req.params
         const attribute = await Attribute.findAll(
-            { where: { kategoryId } }
+            { where: { kategoryId, podKategoryId: null } }
         );
         return res.json(attribute);
     }

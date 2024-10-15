@@ -58,7 +58,17 @@ function NewItemAdd() {
         if (item.type === "kategory") {
             fetchAllAttributeByKategoryId(item.id).then(data => setAttributes(data))
         } else {
-            fetchAllAttributeByPodKategoryId(item.id).then(data => setAttributes(data))
+            fetchAllAttributeByKategoryId(item.id).then(data => {
+                setAttributes(data)
+                fetchAllAttributeByPodKategoryId(item.podid).then(data => {
+                    if (data.length > 0) {
+                        data.map(item=>{
+                            const newElement = item;
+                            setAttributes(prevState => [...prevState, newElement]);
+                        })
+                    }
+                })
+            });
         }
     }
     useEffect(() => {

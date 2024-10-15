@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import ModalWindow from "../modalWindow/ModalWindow";
 import CatalogInfoSlide from "../catalogInfoSlide/CatalogInfoSlide";
 import { NavLink } from "react-router-dom";
-import { MAIN_ROUTE, BUSKET_ROUTE } from "../../pages/appRouter/Const";
+import { MAIN_ROUTE, BUSKET_ROUTE, AMIN_MAIN_ROUTE } from "../../pages/appRouter/Const";
 
 
 export default function Headers({ isAdminHeader }) {
@@ -48,7 +48,15 @@ export default function Headers({ isAdminHeader }) {
                         <p className="upper_text tiny_p" onClick={() => openModal("delivery")}>Доставка</p>
                         <p className="upper_text tiny_p" onClick={() => openModal("delivery")}>Оплата</p>
                     </div>
-                </header> : <></>}
+                </header> :
+                <header className="header">
+                    <div className="header_upper">
+                        <NavLink to={AMIN_MAIN_ROUTE}>
+                            <p className="upper_text tiny_p">Панель админа</p>
+                        </NavLink>
+                    </div>
+                </header>
+            }
             <header className="header_container">
                 <div className="header_category" onClick={() => setIsCategoryActive(true)}>
                     <img className="category_image" src={ListImage} alt="list" />
@@ -70,7 +78,7 @@ export default function Headers({ isAdminHeader }) {
                     <img className="buttons_image" onClick={() => setIsBurgerOpen(!isBurgerOpen)} src={ListImage} alt="truck_Image" />
                 </div>
             </header >
-            <div className={`burger_menu ${isBurgerOpen ? "active" : "unactive"}`}>
+            <div className={`burger_menu ${isBurgerOpen ? "active" : "unactive"}`} style={!isCategotyActive ? { display: "none" } : { display: "block"}}>
                 <p onClick={() => handleBurgerClose(setIsCategoryActive, true)} className="medium_p">Категории</p>
                 <p onClick={() => handleBurgerClose(openModal, "delivery")} className="medium_p">Доставка</p>
                 <p onClick={() => handleBurgerClose(openModal, "delivery")} className="medium_p">Оплата</p>
