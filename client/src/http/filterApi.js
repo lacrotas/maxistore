@@ -30,6 +30,7 @@ export const fetchAttributeById = async (id) => {
         return data;
     }
 }
+
 export const fetchAllAttributeByPodKategoryId = async (id) => {
     if (!id) {
         return null;
@@ -49,19 +50,6 @@ export const deleteAttribute = async (id) => {
             }
         }
         )
-        return data;
-    }
-}
-export const updateMainKategory = async (id, item) => {
-    if (!id) {
-        return null;
-    } else {
-        const token = localStorage.getItem('token');
-        const { data } = await $host.put('api/mainKategoryRouter/update/' + id, item, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        })
         return data;
     }
 }

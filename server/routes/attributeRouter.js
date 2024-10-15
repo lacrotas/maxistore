@@ -8,6 +8,5 @@ router.get('/getAllByKategoryId/:kategoryId', attributeController.getAllAttribut
 router.get('/getAttributeById/:id', attributeController.getAttributeById);
 router.get('/getAllByPodKategoryId/:podKategoryId', attributeController.getAllAttributeByPodKategoryId);
 router.delete('/delete/:id', authenticateToken, attributeController.deleteAttributeById);
-router.put('/update/:id', authenticateToken, attributeController.updateAttributeById);
 
 module.exports = router; 

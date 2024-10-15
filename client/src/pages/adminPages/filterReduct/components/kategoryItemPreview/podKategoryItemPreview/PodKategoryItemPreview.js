@@ -23,7 +23,7 @@ function PodKategoryItemPreview({ podKategory }) {
                         <p className="jura_semi-medium_p">{podKategory.name}</p>
                     </div>
                     <div className="item_container">
-                        <NavLink to={{ pathname: CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, state: { name: podKategory.name, id: podKategory.id, image: podKategory.image } }} >
+                        <NavLink to={{ pathname: CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, state: { name: podKategory.name, id: podKategory.id } }} >
                             <CustomButton text={"Редактировать"} />
                         </NavLink>
                     </div>
@@ -32,7 +32,7 @@ function PodKategoryItemPreview({ podKategory }) {
                     {qwestionData.map((item, index) => (
                         <div className="item_container">
                             <p key={index}>{item.name}</p>
-                            <NavLink to={{ pathname: CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE, state: { name: item.name, id: item.id, image: item.image } }} >
+                            <NavLink to={{ pathname: CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE, state: { name: item.name, kategoryId: podKategory.id, podKategoryId: item.id } }} >
                                 <CustomButton text={"Редактировать"} />
                             </NavLink>
                         </div>

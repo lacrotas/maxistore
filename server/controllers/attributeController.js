@@ -7,8 +7,8 @@ const fs = require('fs');
 class attributeController {
     async addAttribute(req, res, next) {
         try {
-            const { name, kategoryId, mainKategoryId } = req.body
-            const attribute = await Attribute.create({ name: name, podKategoryId: mainKategoryId, kategoryId: kategoryId })
+            const { name, kategoryId, mainKategoryId, podKategoryId } = req.body
+            const attribute = await Attribute.create({ name: name, podKategoryId: mainKategoryId, kategoryId: kategoryId, podKategoryId: podKategoryId || null })
             return res.json(attribute);
         } catch (e) {
             next(ApiError.badRequest(e.message));
@@ -42,34 +42,6 @@ class attributeController {
         )
         await attribute.destroy();
         return res.json('deleted');
-    }
-    async updateAttributeById(req, res) {
-        const { id } = req.params;
-        const { name, kategoryId, mainKategoryId } = req.body
-        try {
-            const [updatedRowsCount, updatedRows] = await Attribute.update(
-                {
-                    name: name,
-                    podKategoryId: mainKategoryId,
-                    kategoryId: kategoryId,
-                },
-                {
-                    returning: true,
-                    where: { id }
-                }
-            );
-
-            if (updatedRowsCount > 0) {
-                // Данные успешно обновлены, возвращаем обновленные данные
-                res.status(200).json({ message: 'Данные успешно обновлены', updatedRows });
-            } else {
-                // Запись с указанным id не найдена
-                res.status(404).json({ message: 'Запись не найдена' });
-            }
-        } catch (error) {
-            console.error('Ошибка при обновлении данных:', error);
-            res.status(500).json({ message: 'Ошибка сервера' });
-        }
     }
 }
 

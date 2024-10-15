@@ -5,25 +5,25 @@ import CustomLabel from "../../../../../customUI/customLabel/CustomLabel";
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import CustomButton from "../../../../../customUI/customButton/CustomButton";
-import { postFilterForKategory, fetchAllAttributeByKategoryId } from "../../../../../http/filterApi";
+import { postFilterForKategory, fetchAllAttributeByPodKategoryId } from "../../../../../http/filterApi";
 import { LOGIN_ROUTE } from "../../../../appRouter/Const";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import FilterItem from "./filterItem/FilterItem";
 
 function PodKategoryFilterReduct() {
     const location = useLocation();
-    const { name, image, id } = location.state || {};
+    const { name, kategoryId, podKategoryId } = location.state || {};
     const history = useHistory();
 
     const [newAttributeValue, setNewAttributeValue] = useState();
     const [attributes, setAttributes] = useState([]);
 
     useEffect(() => {
-        fetchAllAttributeByKategoryId(id).then((data) => setAttributes(data));
+        fetchAllAttributeByPodKategoryId(podKategoryId).then((data) => setAttributes(data || []));
     }, []);
 
     function setNewAttributeForKategory() {
-        postFilterForKategory({ name: newAttributeValue, kategoryId: id }).then((data) => {
+        postFilterForKategory({ name: newAttributeValue, kategoryId: kategoryId, podKategoryId: podKategoryId }).then((data) => {
             if (data) {
                 alert("Данный аттрибут успешно добавлен");
                 window.location.reload();
