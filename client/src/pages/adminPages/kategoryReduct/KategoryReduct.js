@@ -6,10 +6,13 @@ import "./KategoryReduct.scss";
 import KategoryItemPreview from "./components/kategoryItemPreview/KategoryItemPreview";
 import { useState, useEffect } from "react";
 import { fetchAllMainKategory, postMainKategory } from "../../../http/KategoryApi";
+import { LOGIN_ROUTE } from "../../appRouter/Const";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function KategoryReduct() {
     const [mainKategory, setMainKategory] = useState([]);
-    const [newMainKategoryName, setNewMainKategoryName] = useState("")
+    const [newMainKategoryName, setNewMainKategoryName] = useState("");
+    const history = useHistory();
 
     useEffect(() => {
         fetchAllMainKategory().then(data => setMainKategory(data));
@@ -18,9 +21,16 @@ function KategoryReduct() {
     function AddNewMainCategory() {
         const formData = new FormData()
         formData.append('name', newMainKategoryName);
-        postMainKategory(formData);
-        alert("Новая категория добавлена");
-        window.location.reload();
+        postMainKategory(formData).then(data => {
+            if (data) {
+                alert("Новая категория добавлена");
+                window.location.reload();
+            } else {
+                alert("Ваша ссесия завершена авторизуйтесь повторно");
+                history.push(LOGIN_ROUTE);
+            }
+        })
+
     }
 
     return (

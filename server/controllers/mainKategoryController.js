@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 class MainKategoryController {
+
     async addMainKategory(req, res, next) {
         try {
             const { name } = req.body
@@ -31,14 +32,6 @@ class MainKategoryController {
         const mainKategory = await MainKategory.findOne(
             { where: { id } }
         )
-        if (mainKategory.image) {
-            const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error(`Failed to delete image file: ${err.message}`);
-                }
-            });
-        }
         await mainKategory.destroy();
         return res.json('deleted');
     }

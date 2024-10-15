@@ -8,25 +8,33 @@ export const fetchAllMainKategory = async () => {
 }
 export const postMainKategory = async (item) => {
     const token = localStorage.getItem('token');
-    const { data } = await $host.post('api/mainKategoryRouter/add', item, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return data;
+    try {
+        const { data } = await $host.post('api/mainKategoryRouter/add', item, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return data;
+    } catch {
+        return false;
+    }
 }
-export const deleteMainKategory = async (id) => {
+export const deleteMainKategoryById = async (id) => {
     if (!id) {
         return null;
     } else {
         const token = localStorage.getItem('token');
-        const { data } = await $host.delete('api/mainKategoryRouter/delete/' + id, {
-            headers: {
-                Authorization: `Bearer ${token}`
+        try {
+            const { data } = await $host.delete('api/mainKategoryRouter/delete/' + id, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             }
+            )
+            return data;
+        } catch {
+            return false
         }
-        )
-        return data;
     }
 }
 export const updateMainKategory = async (id, item) => {
@@ -71,12 +79,16 @@ export const deleteKategoryByMainKategoryId = async (id) => {
 }
 export const postKategory = async (item) => {
     const token = localStorage.getItem('token');
-    const { data } = await $host.post('api/kategoryRouter/add', item, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-    return data;
+    try {
+        const { data } = await $host.post('api/kategoryRouter/add', item, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return data;
+    } catch {
+        return false;
+    }
 }
 export const updateKategory = async (id, item) => {
     if (!id) {
@@ -95,7 +107,23 @@ export const updateKategory = async (id, item) => {
         }
     }
 }
-
+export const deleteAllKategoryByMainKategoryId = async (id) => {
+    if (!id) {
+        return null;
+    } else {
+        const token = localStorage.getItem('token');
+        try {
+            const { data } = await $host.delete('api/kategoryRouter/deleteAllkategotyByMainKategoryId/' + id, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            return data;
+        } catch (e) {
+            return false;
+        }
+    }
+}
 /* podkategory */
 export const postPodKategory = async (item) => {
     const token = localStorage.getItem('token');

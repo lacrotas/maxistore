@@ -1,0 +1,43 @@
+.filterItem {
+    .filterItem_header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .filterItem_header_container{
+            display: flex;
+            align-items: center;
+        }
+        .header_image-closed, .header_image-open{
+            width: 30px;
+            height: 30px;
+        }
+    }
+    .filterItem_description{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        .filterItem_description_values{
+            margin-top: 10px;
+            width: calc(100% - 100px);
+            display: flex;
+            justify-content: space-between;
+            margin-left: 50px;
+            .values_image{
+                width: 20px;
+                height: 20px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.filterItem.unactive{
+    .header_image-open, .filterItem_description{
+        display: none;
+    }
+}
+.filterItem.active{
+    .header_image-closed{
+        display: none;
+    }
+}

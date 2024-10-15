@@ -12,25 +12,25 @@ const AutoSlider = () => {
 
     useEffect(() => {
         fetchSliders().then(data => {
-            setSliders(data); // Обновляем состояние слайдера только после получения данных
-            setCurrentIndex(0); // Сбрасываем индексы
+            setSliders(data || []);
+            setCurrentIndex(0);
             setNextIndex(1);
         });
     }, []);
 
     useEffect(() => {
-        if (sliders.length > 0) { // Проверяем, что слайды уже загружены
+        if (sliders.length > 0) {
             const interval = setInterval(() => {
                 setCurrentIndex((prevIndex) => (prevIndex + 1) % sliders.length);
                 setNextIndex((prevIndex) => (prevIndex + 1) % sliders.length);
-            }, 5000); // Меняем слайд каждые 5 секунд
+            }, 5000);
             return () => clearInterval(interval);
         }
     }, [sliders]);
 
     return (
         <div className="auto-slider">
-            {sliders ?
+            {sliders.length > 0 ?
                 sliders.map((item, idx) => (
                     <Slide type={idx === currentIndex ? "current" : idx === nextIndex ? "next" : "none"} key={idx} image={process.env.REACT_APP_API_URL + item.image} label={item.label} description={item.description} />
                 ))

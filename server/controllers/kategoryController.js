@@ -1,4 +1,4 @@
-const { Kategory, Item } = require('../models/models');
+const { Kategory } = require('../models/models');
 const ApiError = require('../error/ApiError');
 const uuid = require('uuid');
 const path = require('path');
@@ -6,6 +6,7 @@ const fs = require('fs');
 const { where } = require('sequelize');
 
 class kategoryController {
+
     async addKategory(req, res, next) {
         try {
             const { name, mainKategoryId } = req.body
@@ -39,14 +40,14 @@ class kategoryController {
         const kategory = await Kategory.findOne(
             { where: { id } }
         )
-        if (kategory.image) {
-            const imagePath = path.resolve(__dirname, '..', 'static', kategory.image);
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error(`Failed to delete image file: ${err.message}`);
-                }
-            });
-        }
+        // if (kategory.image) {
+        //     const imagePath = path.resolve(__dirname, '..', 'static', kategory.image);
+        //     fs.unlink(imagePath, (err) => {
+        //         if (err) {
+        //             console.error(`Failed to delete image file: ${err.message}`);
+        //         }
+        //     });
+        // }
         await kategory.destroy();
         return res.json('deleted');
     }
@@ -101,11 +102,12 @@ class kategoryController {
             res.status(500).json({ message: 'Ошибка сервера' });
         }
     }
-    // async deleteAllKategoryByMainKategoryId(req, res) {
+    // async deleteAllRelationInMainKategoryByMainKategoryId(req, res) {
     //     const { mainKategoryId } = req.params
     //     const kategory = await Kategory.findAll(
     //         { where: { mainKategoryId } }
     //     )
+    //     // delete kategoty and podKategory and their images
     //     for (const item of kategory) {
     //         if (item.image) {
     //             const imagePath = path.resolve(__dirname, '..', 'static', item.image);
@@ -115,9 +117,52 @@ class kategoryController {
     //                 }
     //             });
     //         }
+    //         const podkategory = await PodKategory.findAll(
+    //             { where: { kategoryId: String(item.id) } }
+    //         )
+    //         for (const podItem of podkategory) {
+    //             await podItem.destroy();
+    //         }
     //         await item.destroy();
     //     }
-
+    //     // delete items
+    //     const items = await Item.findAll(
+    //         { where: { mainKategoryId } }
+    //     )
+    //     for (const item of items) {
+    //         if (item.image) {
+    //             const imagePath = path.resolve(__dirname, '..', 'static', item.image);
+    //             fs.unlink(imagePath, (err) => {
+    //                 if (err) {
+    //                     console.error(`Failed to delete image file: ${err.message}`);
+    //                 }
+    //             });
+    //         }
+    //         // delete itemAttribute
+    //         const itemAttributeArr = await ItemAttribute.findAll(
+    //             { where: { itemId: String(item.id) } }
+    //         )
+    //         for (const itemAtr of itemAttributeArr) {
+    //             await itemAtr.destroy();
+    //         }
+    //         // delete itemImage
+    //         const itemImageArr = await ItemImage.findAll(
+    //             { where: { itemId: String(item.id) } }
+    //         )
+    //         for (const itemImage of itemImageArr) {
+    //             if (item.image) {
+    //                 const imagePath = path.resolve(__dirname, '..', 'static', item.image);
+    //                 fs.unlink(imagePath, (err) => {
+    //                     if (err) {
+    //                         console.error(`Failed to delete image file: ${err.message}`);
+    //                     }
+    //                 });
+    //             }
+    //             await itemImage.destroy();
+    //         }
+    //         await item.destroy();
+    //     }
+    //     //delete attribute 
     //     return res.json('deleted');
     // }
 }

@@ -8,15 +8,7 @@ class podKategoryController {
     async addPodKategory(req, res, next) {
         try {
             const { name, kategoryId } = req.body
-            let fileName;
-            try {
-                const { image } = req.files;
-                fileName = uuid.v4() + ".jpg";
-                image.mv(path.resolve(__dirname, '..', 'static', fileName));
-            } catch (e) {
-                console.log(e);
-            }
-            const kategory = await PodKategory.create({ name: name, kategoryId: kategoryId, image: fileName })
+            const kategory = await PodKategory.create({ name: name, kategoryId: kategoryId })
             return res.json(kategory);
         } catch (e) {
             next(ApiError.badRequest(e.message));
@@ -38,49 +30,17 @@ class podKategoryController {
         const mainKategory = await PodKategory.findOne(
             { where: { id } }
         )
-        if (mainKategory.image) {
-            const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error(`Failed to delete image file: ${err.message}`);
-                }
-            });
-        }
         await mainKategory.destroy();
         return res.json('deleted');
     }
     async updatePodKategoryById(req, res) {
         const { id } = req.params;
         const { name, kategoryId } = req.body;
-        let fileName;
-        // change new image and delete old
-        try {
-            const { image } = req.files;
-            const mainKategory = await PodKategory.findOne(
-                { where: { id } }
-            )
-            if (mainKategory.image) {
-                const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
-                fs.unlink(imagePath, (err) => {
-                    if (err) {
-                        console.error(`Failed to delete image file: ${err.message}`);
-                    }
-                });
-            }
-            fileName = uuid.v4() + ".jpg";
-            image.mv(path.resolve(__dirname, '..', 'static', fileName));
-        } catch (error) {
-            const { image } = req.body;
-            if (image) {
-                fileName = image;
-            }
-        }
         try {
             const [updatedRowsCount, updatedRows] = await PodKategory.update(
                 {
                     name: name,
                     kategoryId: kategoryId,
-                    image: fileName,
                 },
                 {
                     returning: true,

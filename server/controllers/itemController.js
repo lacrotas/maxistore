@@ -5,9 +5,10 @@ const path = require('path');
 const fs = require('fs');
 
 class itemController {
+
     async addItem(req, res, next) {
         try {
-            const { name, mainKategoryId, kategoryId, podKategoryId, price, isExist, isShowed, description } = req.body
+            const { name, mainKategoryId, kategoryId, podKategoryId, price, description } = req.body
             let fileName;
             try {
                 const { image } = req.files;
@@ -17,8 +18,8 @@ class itemController {
                 console.log(e);
             }
             const kategory = await Item.create({
-                name: name, mainKategoryId: mainKategoryId, kategoryId: kategoryId, podKategoryId: podKategoryId,
-                image: fileName, price: price, isExist: isExist, isShowed: isShowed, description: description, rating: "0",
+                name: name, mainKategoryId: mainKategoryId, kategoryId: kategoryId, podKategoryId: podKategoryId || null,
+                image: fileName, price: price, isExist: true, isShowed: true, description: description, rating: "0",
                 reviewNumber: "0"
             })
             return res.json(kategory);
@@ -64,14 +65,14 @@ class itemController {
         const mainKategory = await Item.findOne(
             { where: { id } }
         )
-        if (mainKategory.image) {
-            const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error(`Failed to delete image file: ${err.message}`);
-                }
-            });
-        }
+        // if (mainKategory.image) {
+        //     const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
+        //     fs.unlink(imagePath, (err) => {
+        //         if (err) {
+        //             console.error(`Failed to delete image file: ${err.message}`);
+        //         }
+        //     });
+        // }
         await mainKategory.destroy();
         return res.json('deleted');
     }

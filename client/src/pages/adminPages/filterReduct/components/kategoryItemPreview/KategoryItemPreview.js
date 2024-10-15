@@ -1,12 +1,9 @@
-import CustomButton from "../../../../../customUI/customButton/CustomButton";
 import "./KategoryItemPreview.scss";
 import ArrowImage from "../../../../../assets/images/arrow.png";
 import ArrowOpenImage from "../../../../../assets/images/arrowOpen.png";
 import PodKategoryItemPreview from "./podKategoryItemPreview/PodKategoryItemPreview";
 import { useState, useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { CURRENT_KATEGORY_REDUCT_ROUTE } from "../../../../appRouter/Const";
-import { fetchAllKategoryByMainKategoryId, deleteKategoryByMainKategoryId, deleteMainKategory } from "../../../../../http/KategoryApi";
+import { fetchAllKategoryByMainKategoryId, deleteKategoryByMainKategoryId, deleteMainKategoryById } from "../../../../../http/KategoryApi";
 
 function KategoryItemPreview({ name, id, image }) {
 
@@ -22,7 +19,7 @@ function KategoryItemPreview({ name, id, image }) {
             kategory.forEach((item) => {
                 deleteKategoryByMainKategoryId(item.id);
             })
-            deleteMainKategory(id);
+            deleteMainKategoryById(id);
             alert("Данная категория успешно удаленна");
             window.location.reload();
         }

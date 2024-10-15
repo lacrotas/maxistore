@@ -6,6 +6,7 @@ const fs = require('fs');
 
 class itemImageController {
 
+
     async addItemImage(req, res, next) {
         try {
             const { itemId } = req.body
@@ -36,14 +37,14 @@ class itemImageController {
         const mainKategory = await ItemImage.findOne(
             { where: { id } }
         )
-        if (mainKategory.image) {
-            const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
-            fs.unlink(imagePath, (err) => {
-                if (err) {
-                    console.error(`Failed to delete image file: ${err.message}`);
-                }
-            });
-        }
+        // if (mainKategory.image) {
+        //     const imagePath = path.resolve(__dirname, '..', 'static', mainKategory.image);
+        //     fs.unlink(imagePath, (err) => {
+        //         if (err) {
+        //             console.error(`Failed to delete image file: ${err.message}`);
+        //         }
+        //     });
+        // }
         await mainKategory.destroy();
         return res.json('deleted');
     }

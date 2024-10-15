@@ -59,13 +59,11 @@ function CurrentPodKategoryReduct() {
     function deletekategory() {
         const result = prompt("Если вы удалите данную категорию удаляться все подподкатегории и товары связанные с ней. Если уверены введите слово \"да\"", []);
         if (result) {
-            podKategory.forEach((item) => {
-                deletePodKategoryById(item.id);
-            })
             try {
                 deleteKategoryByMainKategoryId(id);
                 alert("Данная категория успешно удаленна");
                 history.push(KATEGORY_REDUCT_ROUTE);
+                window.location.reload();
             } catch {
                 alert("Ваша сессия завершена, авторизируйтесь повторно");
                 history.push(LOGIN_ROUTE);

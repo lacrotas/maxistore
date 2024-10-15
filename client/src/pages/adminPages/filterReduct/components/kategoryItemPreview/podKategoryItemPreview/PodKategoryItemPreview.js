@@ -3,7 +3,7 @@ import "./PodKategoryItemPreview.scss";
 import ArrowImage from "../../../../../../assets/images/arrow.png";
 import ArrowOpenImage from "../../../../../../assets/images/arrowOpen.png";
 import { NavLink } from "react-router-dom";
-import { CURRENT_KATEGORY_FILTER_REDUCT_ROUTE } from "../../../../../appRouter/Const";
+import { CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE } from "../../../../../appRouter/Const";
 import { fetchAllKategoryByPodKategoryId } from "../../../../../../http/KategoryApi";
 import { useEffect, useState } from "react";
 
@@ -32,7 +32,7 @@ function PodKategoryItemPreview({ podKategory }) {
                     {qwestionData.map((item, index) => (
                         <div className="item_container">
                             <p key={index}>{item.name}</p>
-                            <NavLink to={{ pathname: CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, state: { name: item.name, id: item.id, image: item.image } }} >
+                            <NavLink to={{ pathname: CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE, state: { name: item.name, id: item.id, image: item.image } }} >
                                 <CustomButton text={"Редактировать"} />
                             </NavLink>
                         </div>

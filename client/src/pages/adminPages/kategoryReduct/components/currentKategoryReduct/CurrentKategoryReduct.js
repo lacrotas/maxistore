@@ -7,7 +7,7 @@ import CurrentKategoryReductItem from "./currentKategoryReductItem/CurrentKatego
 import UpdateImage from "../../../../../assets/images/UpdateImage.png";
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import { fetchAllKategoryByMainKategoryId, postKategory, deleteMainKategory, updateMainKategory, deleteKategoryByMainKategoryId } from "../../../../../http/KategoryApi";
+import { fetchAllKategoryByMainKategoryId, postKategory, deleteMainKategoryById, updateMainKategory, deleteKategoryByMainKategoryId } from "../../../../../http/KategoryApi";
 import ModalWindow from "../../../../../components/modalWindow/ModalWindow";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { KATEGORY_REDUCT_ROUTE } from "../../../../appRouter/Const";
@@ -25,7 +25,6 @@ function CurrentKategoryReduct() {
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         setNewImageFile(file);
-        // setImageFile(file);
         if (file) {
             const imageUrl = URL.createObjectURL(file);
             setImage(imageUrl);
@@ -42,23 +41,19 @@ function CurrentKategoryReduct() {
     function deletePodKategory(id) {
         const result = prompt("Если вы удалите данную подкатегорию удаляться все подкатегории и товары связанные с ней. Если уверены введите слово \"да\"", []);
         if (result) {
-            // podKategory.forEach((item) => {
-            //     deleteKategoryByMainKategoryId(item.id);
-            // })
             deleteKategoryByMainKategoryId(id);
             alert("Данная подкатегория успешно удаленна");
+            history.push(KATEGORY_REDUCT_ROUTE);
             window.location.reload();
         }
     }
     function deletekategory() {
         const result = prompt("Если вы удалите данную категорию удаляться все подподкатегории и товары связанные с ней. Если уверены введите слово \"да\"", []);
         if (result) {
-            podKategory.forEach((item) => {
-                deleteKategoryByMainKategoryId(item.id);
-            })
-            deleteMainKategory(id);
+            deleteMainKategoryById(id);
             alert("Данная категория успешно удаленна");
             history.push(KATEGORY_REDUCT_ROUTE);
+            window.location.reload();
         }
     }
     function updateKategory() {

@@ -81,13 +81,13 @@ function NewItemAdd() {
     function postnewItem() {
         const formData = new FormData();
         formData.append("name", newItemName);
-        formData.append("mainKategoryId", choosenKategory.mainKategoryId);
-        formData.append("kategoryId", choosenKategory.id);
-        formData.append("podKategoryId", choosenKategory.podid);
+        formData.append("mainKategoryId", Number(choosenKategory.mainKategoryId));
+        formData.append("kategoryId", Number(choosenKategory.id));
+        if (choosenKategory.podid !== undefined && choosenKategory.podid !== null) {
+            formData.append("podKategoryId", Number(choosenKategory.podid));
+        }
         formData.append("image", mainImage);
         formData.append("price", cost);
-        formData.append("isExist", true);
-        formData.append("isShowed", true);
         formData.append("description", description);
 
         postItem(formData).then(data => {
@@ -108,9 +108,6 @@ function NewItemAdd() {
                 history.push(LOGIN_ROUTE);
             }
         });
-
-        // postItemAttribute({ itemId: 1, attributeId: attibutes.id, valueId: "" });
-        // images and attributes
     }
     return (
         <>

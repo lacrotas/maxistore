@@ -7,7 +7,7 @@ const fileUpload = require('express-fileupload');
 const router = require('./routes/index');
 const errorHandler = require('./middleware/errorHandleMiddleware');
 const path = require('path');
-
+const ImageDeletionService = require('./services/ImageDeletionService');
 const PORT = process.env.PORT || 5000;
 const app = express();
 
@@ -20,11 +20,12 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-  
 app.use((req, res, next) => {
     res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-src 'self';frame-ancestors 'none'");
     next();
 });
+
+new ImageDeletionService();
 
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, 'static')))

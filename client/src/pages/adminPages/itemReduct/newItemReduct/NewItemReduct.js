@@ -65,11 +65,11 @@ function NewItemReduct() {
 
         if (path.podKategoryId == "undefined") {
             fetchAllAttributeByKategoryId(path.kategoryId).then(data => {
-                setAttributes(data);
+                setAttributes(data ||[]);
             })
         } else {
             fetchAllAttributeByPodKategoryId(path.podKategoryId).then(data => {
-                setAttributes(data);
+                setAttributes(data||[]);
             })
         }
     }, []);
@@ -143,21 +143,10 @@ function NewItemReduct() {
             }
         });
     }
+
     function deleteItem() {
         const result = prompt("Вы уверенные что хотите удалить товар, удаляться все отзывы к даномому товару. Если уверены введите слово \"да\"", []);
         if (result) {
-            // delete reviews
-            try{
-            deleteReviewByItemId(path.id);
-            }catch(e){
-                
-            }
-            attibutesValues.map((item) => {
-                deleteAttributeValue(item.id);
-            })
-            imageLenght.map(item => {
-                deleteItemImage(item.id);
-            })
             deleteItemById(path.id).then(data => {
                 if (data) {
                     alert("Ваш товар успешно удален");
@@ -184,7 +173,7 @@ function NewItemReduct() {
                 <div className="newItem_container">
                     <div className="container_image">
                         <div className="image_container--left">
-                            {imageLenght.map((item, index) => (
+                            {imageLenght.length > 0 && imageLenght.map((item, index) => (
                                 <img className="image_image--main" key={index} onClick={() => setNewImage(index)} src={item.name ? URL.createObjectURL(item) : item.image ? process.env.REACT_APP_API_URL + item.image : EmptyImage} alt="empty" />
                             ))}
                             <img className="image_image--plus" onClick={() => handleimageLenghtClick()} src={PlusImage} alt="plus" />
@@ -201,7 +190,7 @@ function NewItemReduct() {
                 </div>
                 <div className="newItem_haracteristic">
                     <p className="jura_medium_bold">Характеристики</p>
-                    {attibutes.map((item, index) => (
+                    {attibutes.length > 0 && attibutes.map((item, index) => (
                         <AttributeItem key={index} itemId={path.id} choosenValueArr={attibutesValues} newArrayToChange={newChoosenValueArr} setChoosenValueArr={setNewChoosenValueArr} item={item} />
                     ))}
                 </div>

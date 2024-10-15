@@ -6,7 +6,7 @@ import PodKategoryItemPreview from "../podKategoryItemPreview/PodKategoryItemPre
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { CURRENT_KATEGORY_REDUCT_ROUTE } from "../../../../appRouter/Const";
-import { fetchAllKategoryByMainKategoryId, deleteKategoryByMainKategoryId, deleteMainKategory } from "../../../../../http/KategoryApi";
+import { fetchAllKategoryByMainKategoryId, deleteKategoryByMainKategoryId, deleteMainKategory, deleteMainKategoryById } from "../../../../../http/KategoryApi";
 
 function KategoryItemPreview({ name, id, image }) {
 
@@ -19,11 +19,7 @@ function KategoryItemPreview({ name, id, image }) {
     function deletekategory() {
         const result = prompt("Если вы удалите данную категорию удаляться все подподкатегории и товары связанные с ней. Если уверены введите слово \"да\"", []);
         if (result) {
-            kategory.forEach((item) => {
-                deleteKategoryByMainKategoryId(item.id);
-            })
-            deleteMainKategory(id);
-            alert("Данная категория успешно удаленна");
+            deleteMainKategoryById(id);
             window.location.reload();
         }
     }
@@ -47,7 +43,7 @@ function KategoryItemPreview({ name, id, image }) {
                 </div>
                 <div className="qwestion_description">
                     {kategory.map((item, index) => (
-                            <PodKategoryItemPreview key={index} podKategory={item} />
+                        <PodKategoryItemPreview key={index} podKategory={item} />
                     ))}
                 </div>
             </li>

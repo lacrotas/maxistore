@@ -11,6 +11,7 @@ export const postItem = async (item) => {
         });
         return data;
     } catch (e) {
+        alert(e);
         return false;
     }
 }

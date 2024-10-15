@@ -3,7 +3,7 @@ import {
     MAIN_ROUTE, BUSKET_ROUTE, ITEM_ROUTE, AMIN_MAIN_ROUTE, SLIDER_REDUCT_ROUTE, ITEM_PREVIEW_ROUTE,
     SLIDE_ADD_ROUTE, KATEGORY_REDUCT_ROUTE, CURRENT_KATEGORY_REDUCT_ROUTE, LOGIN_ROUTE, CURRENT_POD_KATEGORY_REDUCT_ROUTE,
     FILTER_REDUCT_ROUTE, CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, ITEM_REDUCT_ROUTE, NEW_ITEM_POST_ROUTE, NEW_ITEM_REDUCT_ROUTE,
-    QWESTION_REDUCT_ROUTE, REVIEW_REDUCT_ROUTE
+    QWESTION_REDUCT_ROUTE, REVIEW_REDUCT_ROUTE, CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE
 } from './Const';
 import BasketPage from "../userPages/BasketPage";
 import ItemPage from "../userPages/itemPage/ItemPage";
@@ -22,7 +22,7 @@ import ReviewReduct from "../adminPages/reviewReduct/ReviewReduct";
 import QwestionReduct from "../adminPages/qwestionReduct/QwestionReduct";
 import NewItemReduct from "../adminPages/itemReduct/newItemReduct/NewItemReduct";
 import ItemFullPreview from "../userPages/itemPage/components/itemFullPreview/ItemFullPreview";
-
+import PodKategoryFilterReduct from "../adminPages/filterReduct/components/podKategoryFilterReduct/PodKategoryFilterReduct";
 export const publicRoutes = [
     {
         path: MAIN_ROUTE,
@@ -82,6 +82,10 @@ export const adminRoutes = [
     {
         path: CURRENT_KATEGORY_FILTER_REDUCT_ROUTE,
         Component: KategoryFilterReduct,
+    },
+    {
+        path: CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE,
+        Component: PodKategoryFilterReduct,
     },
     {
         path: ITEM_REDUCT_ROUTE,

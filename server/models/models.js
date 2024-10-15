@@ -1,6 +1,7 @@
 const sequelize = require("../db");
 const { DataTypes } = require("sequelize")
 
+// unlinked data
 const Slider = sequelize.define('slider', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     label: { type: DataTypes.STRING, },
@@ -15,6 +16,14 @@ const User = sequelize.define('users', {
     password: { type: DataTypes.STRING },
 })
 
+const Qwestion = sequelize.define('qwestion', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    qwestion: { type: DataTypes.STRING },
+    description: { type: DataTypes.STRING },
+})
+
+// linked data
+// kategoryes
 const MainKategory = sequelize.define('mainKategory', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     name: { type: DataTypes.STRING, unique: true },
@@ -23,42 +32,37 @@ const MainKategory = sequelize.define('mainKategory', {
 
 const Kategory = sequelize.define('kategory', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    mainKategoryId: { type: DataTypes.STRING },
+    mainKategoryId: { type: DataTypes.INTEGER },
     name: { type: DataTypes.STRING, unique: true },
     image: { type: DataTypes.STRING },
 })
 
 const PodKategory = sequelize.define('podKategory', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    kategoryId: { type: DataTypes.STRING },
+    kategoryId: { type: DataTypes.INTEGER },
     name: { type: DataTypes.STRING, unique: true },
-    image: { type: DataTypes.STRING },
 })
 
+// attributes and values
 const Attribute = sequelize.define('attribute', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    kategoryId: { type: DataTypes.STRING },
-    podKategoryId: { type: DataTypes.STRING },
+    kategoryId: { type: DataTypes.INTEGER, allowNull: true },
+    podKategoryId: { type: DataTypes.INTEGER, allowNull: true },
     name: { type: DataTypes.STRING },
 })
 
 const Value = sequelize.define('value', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    attributeId: { type: DataTypes.STRING },
+    attributeId: { type: DataTypes.INTEGER },
     name: { type: DataTypes.STRING }
 })
 
-const ItemImage = sequelize.define('itemImage', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    itemId: { type: DataTypes.STRING },
-    image: { type: DataTypes.STRING }
-})
-
+// items
 const Item = sequelize.define('item', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    mainKategoryId: { type: DataTypes.STRING },
-    kategoryId: { type: DataTypes.STRING },
-    podKategoryId: { type: DataTypes.STRING },
+    mainKategoryId: { type: DataTypes.INTEGER, allowNull: true },
+    kategoryId: { type: DataTypes.INTEGER, allowNull: true },
+    podKategoryId: { type: DataTypes.INTEGER, allowNull: true },
     name: { type: DataTypes.STRING },
     image: { type: DataTypes.STRING },
     price: { type: DataTypes.STRING },
@@ -69,28 +73,89 @@ const Item = sequelize.define('item', {
     reviewNumber: { type: DataTypes.STRING },
 })
 
+const ItemAttribute = sequelize.define('itemAttribute', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    itemId: { type: DataTypes.INTEGER },
+    attributeId: { type: DataTypes.INTEGER },
+    valueId: { type: DataTypes.INTEGER },
+})
+
+const ItemImage = sequelize.define('itemImage', {
+    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+    itemId: { type: DataTypes.INTEGER },
+    image: { type: DataTypes.STRING }
+})
+
 const Review = sequelize.define('review', {
     id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    itemId: { type: DataTypes.STRING },
+    itemId: { type: DataTypes.INTEGER },
     mark: { type: DataTypes.STRING },
     Reviewdate: { type: DataTypes.STRING },
     label: { type: DataTypes.STRING },
     description: { type: DataTypes.STRING },
     isShowed: { type: DataTypes.BOOLEAN },
 })
+// relation between kategoryes
+MainKategory.hasMany(Kategory, {
+    foreignKey: 'mainKategoryId',
+    onDelete: 'CASCADE'
+});
+Kategory.hasMany(PodKategory, {
+    foreignKey: 'kategoryId',
+    onDelete: 'CASCADE'
+});
+// relation betweem attribute and kategory
+Kategory.hasMany(Attribute, {
+    foreignKey: 'kategoryId',
+    onDelete: 'CASCADE'
+});
+PodKategory.hasMany(Attribute, {
+    foreignKey: 'podKategoryId',
+    onDelete: 'CASCADE'
+});
+Attribute.hasMany(Value, {
+    foreignKey: 'attributeId',
+    onDelete: 'CASCADE'
+});
 
-const ItemAttribute = sequelize.define('itemAttribute', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    itemId: { type: DataTypes.STRING },
-    attributeId: { type: DataTypes.STRING },
-    valueId: { type: DataTypes.STRING },
-})
+// relation between kategoryes and item
+MainKategory.hasMany(Item, {
+    foreignKey: 'mainKategoryId',
+    onDelete: 'CASCADE'
+});
+Item.belongsTo(MainKategory, {
+    foreignKey: 'mainKategoryId',
+    onDelete: 'CASCADE'
+});
 
-const Qwestion = sequelize.define('qwestion', {
-    id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-    qwestion: { type: DataTypes.STRING },
-    description: { type: DataTypes.STRING },
-})
+Kategory.hasMany(Item, {
+    foreignKey: 'kategoryId',
+    onDelete: 'CASCADE'
+});
+Item.belongsTo(Kategory, {
+    foreignKey: 'kategoryId',
+    onDelete: 'CASCADE'
+});
+
+PodKategory.hasMany(Item, {
+    foreignKey: 'podKategoryId',
+    onDelete: 'CASCADE'
+});
+Item.belongsTo(PodKategory, {
+    foreignKey: 'podKategoryId',
+    onDelete: 'CASCADE'
+});
+
+// relation with item
+Item.hasMany(ItemAttribute, { foreignKey: 'itemId', onDelete: 'CASCADE' });
+ItemAttribute.belongsTo(Item, { foreignKey: 'itemId' });
+
+Item.hasMany(ItemImage, { foreignKey: 'itemId', onDelete: 'CASCADE' });
+ItemImage.belongsTo(Item, { foreignKey: 'itemId' });
+
+Item.hasMany(Review, { foreignKey: 'itemId', onDelete: 'CASCADE' });
+Review.belongsTo(Item, { foreignKey: 'itemId' });
+
 
 module.exports = {
     Slider,
