@@ -18,6 +18,15 @@ export const fetchAllItem = async () => {
     const { data } = await $host.get('api/itemRouter/getAll');
     return data;
 }
+export const fetchAllItemByName = async (substring) => {
+    try {
+        const { data } = await $host.get('api/itemRouter/getAllByNameSubst/' + substring);
+        return data;
+    } catch (e) {
+        console.log(e);
+        return false;
+    }
+}
 export const fetchItemId = async (id) => {
     if (!id) {
         return null;
@@ -64,7 +73,6 @@ export const deleteItemById = async (id) => {
         return data;
     }
 }
-
 export const updateItemById = async (id, item) => {
     if (!id) {
         return null;

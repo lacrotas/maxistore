@@ -3,8 +3,27 @@ const ApiError = require('../error/ApiError');
 const uuid = require('uuid');
 const path = require('path');
 const fs = require('fs');
+const { Op } = require('sequelize');
 
 class itemController {
+
+    async getItemsByNameSubstring(req, res) {
+        const { substring } = req.params;
+        console.log("substring");
+        console.log(substring);
+        try {
+            const items = await Item.findAll({
+                where: {
+                    name: {
+                        [Op.like]: `%${substring}%`
+                    }
+                }
+            });
+            return res.json(items);
+        } catch (error) {
+            return res.status(500).json({ message: "Error fetching items", error });
+        }
+    }
 
     async addItem(req, res, next) {
         try {

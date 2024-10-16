@@ -3,7 +3,7 @@ import {
     MAIN_ROUTE, BUSKET_ROUTE, ITEM_ROUTE, AMIN_MAIN_ROUTE, SLIDER_REDUCT_ROUTE, ITEM_PREVIEW_ROUTE,
     SLIDE_ADD_ROUTE, KATEGORY_REDUCT_ROUTE, CURRENT_KATEGORY_REDUCT_ROUTE, LOGIN_ROUTE, CURRENT_POD_KATEGORY_REDUCT_ROUTE,
     FILTER_REDUCT_ROUTE, CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, ITEM_REDUCT_ROUTE, NEW_ITEM_POST_ROUTE, NEW_ITEM_REDUCT_ROUTE,
-    QWESTION_REDUCT_ROUTE, REVIEW_REDUCT_ROUTE, CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE
+    QWESTION_REDUCT_ROUTE, REVIEW_REDUCT_ROUTE, CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE, ITEM_SEARCH_ROUTE
 } from './Const';
 import BasketPage from "../userPages/BasketPage";
 import ItemPage from "../userPages/itemPage/ItemPage";
@@ -23,6 +23,7 @@ import QwestionReduct from "../adminPages/qwestionReduct/QwestionReduct";
 import NewItemReduct from "../adminPages/itemReduct/newItemReduct/NewItemReduct";
 import ItemFullPreview from "../userPages/itemPage/components/itemFullPreview/ItemFullPreview";
 import PodKategoryFilterReduct from "../adminPages/filterReduct/components/podKategoryFilterReduct/PodKategoryFilterReduct";
+import ItemSearchPage from "../userPages/itemSearchPage/ItemSearchPage";
 export const publicRoutes = [
     {
         path: MAIN_ROUTE,
@@ -39,6 +40,10 @@ export const publicRoutes = [
     {
         path: LOGIN_ROUTE,
         Component: LoginPage
+    },
+    {
+        path: ITEM_SEARCH_ROUTE,
+        Component: ItemSearchPage
     },
     {
         path: ITEM_PREVIEW_ROUTE + '/:id',
