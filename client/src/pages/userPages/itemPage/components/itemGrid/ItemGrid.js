@@ -1,16 +1,17 @@
 import "./ItemGrid.scss";
 import GridItemPrewiev from "./gridItemPrewiev/GridItemPrewiev";
-import { fetchAllItemByKategoryId } from "../../../../../http/itemApi";
+import { fetchAllItemByKategoryId, fetchAllItemByPodKategoryId } from "../../../../../http/itemApi";
 import { useState, useEffect } from "react";
 
-function ItemGrid({ kategryId, podKategryId }) {
+function ItemGrid({ currentFilter, kategryId, podKategryId }) {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        console.log(kategryId);
 
         if (podKategryId) {
-
+            fetchAllItemByPodKategoryId(podKategryId).then(data => {
+                setItems(data || []);
+            })
         } else {
 
             fetchAllItemByKategoryId(kategryId).then(data => {
@@ -19,6 +20,7 @@ function ItemGrid({ kategryId, podKategryId }) {
         }
 
     }, [])
+    
     return (
         <div className="item_grid_container">
             <div className="grid_container">
@@ -29,7 +31,7 @@ function ItemGrid({ kategryId, podKategryId }) {
             </div>
             <div className="grid_container_grid">
                 {items.map((item) => (
-                    <GridItemPrewiev item={item} />
+                    <GridItemPrewiev item={item} currentFilter={currentFilter} />
                 ))}
             </div>
         </div>

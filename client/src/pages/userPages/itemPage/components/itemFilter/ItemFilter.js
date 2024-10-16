@@ -4,7 +4,7 @@ import "./ItemFilter.scss";
 import { useState, useEffect } from "react";
 import { fetchAllAttributeValuesByAttributeId } from "../../../../../http/attributeValue";
 import FilterValue from "./fiterValue/FilterValue";
-function ItemFilter({ item }) {
+function ItemFilter({ setNewCurrentFilter, item }) {
     const [isOpen, setIsOpen] = useState(false);
     const [attributeValues, setAttributeValues] = useState([]);
 
@@ -24,8 +24,8 @@ function ItemFilter({ item }) {
             </div>
             <div className={`itemPage_filter-description ${isOpen ? "active" : "unactive"}`}>
                 {attributeValues && attributeValues.length > 0
-                    ? attributeValues.map((item, index) => (
-                        <FilterValue item={item} key={index} />
+                    ? attributeValues.map((value, index) => (
+                        <FilterValue setNewCurrentFilter={setNewCurrentFilter} value={value} item={item} key={index} />
                     ))
                     : <p>No attributes found</p>}
             </div>

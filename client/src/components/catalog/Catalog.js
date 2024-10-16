@@ -1,10 +1,6 @@
 import ButtonImage from "../../assets/images/button.png";
 import "./Catalog.scss";
 import CatalogItem from "./catalogItem/CatalogItem";
-import TrenImage from "../../assets/images/category/tren.png";
-import BatutImage from "../../assets/images/category/batut.png";
-import MassImage from "../../assets/images/category/mass.png";
-import TenisImage from "../../assets/images/category/tenis.png";
 import { fetchAllMainKategory } from "../../http/KategoryApi";
 import { fetchAllItemByMainKategoryId } from "../../http/itemApi"
 import { useState, useEffect } from "react";

@@ -8,6 +8,7 @@ import ItemFilter from "./components/itemFilter/ItemFilter";
 import { fetchAllAttributeByKategoryId, fetchAllAttributeByPodKategoryId } from "../../../http/filterApi";
 import ItemGrid from "./components/itemGrid/ItemGrid";
 import Footer from "../../../components/footer/Footer";
+
 function ItemPage() {
     const location = useLocation();
     const path = location.state?.path;
@@ -15,11 +16,21 @@ function ItemPage() {
     const [kategryId, setKategoryId] = useState(false);
     const [podKategryId, setPodKategryId] = useState(false);
 
+    const [currentFilter, setCurrentFilter] = useState([]);
+
     useEffect(() => {
         if ((path.length - 1) === 2) {
             setPodKategryId(path[path.length - 1].id);
-            fetchAllAttributeByPodKategoryId(path[path.length - 1].id).then(data => {
-                setFilter(data);
+            fetchAllAttributeByKategoryId(path[path.length - 2].id).then(dataKategory => {
+                setFilter(dataKategory);
+                fetchAllAttributeByPodKategoryId(path[path.length - 1].id).then(data => {
+                    if (data.length > 0) {
+                        data.map(item => {
+                            const newElement = item;
+                            setFilter(prevState => [...prevState, newElement]);
+                        })
+                    }
+                })
             })
         } else {
             setKategoryId(path[path.length - 1].id);
@@ -28,6 +39,24 @@ function ItemPage() {
             })
         }
     }, []);
+
+    function setNewCurrentFilter(newFilter, isChoosen) {
+        if (isChoosen) {
+            const index = currentFilter.findIndex(item => {
+                return Number(item.attributeId) === Number(newFilter.attributeId) && Number(item.valueId) === Number(newFilter.valueId)
+            });
+            if (index != -1) {
+                const newFilterArray = [...currentFilter];
+                newFilterArray.splice(index, 1);
+                setCurrentFilter(newFilterArray);
+            }
+        } else {
+            setCurrentFilter(prevState => [...prevState, newFilter]);
+        }
+    }
+    function applyFilters() {
+        console.log(currentFilter);
+    }
     return (
         <div className="itemPage">
             <Headers />
@@ -35,14 +64,11 @@ function ItemPage() {
             <div className="itemPage_fiter_grid_container">
                 <div className="itemPage_filter_container">
                     {filter.map((item, index) => (
-                        <ItemFilter item={item} key={index} />
+                        <ItemFilter setNewCurrentFilter={setNewCurrentFilter} item={item} key={index} />
                     ))}
-                    <div className="custom_button">
-                        <p className="custom_button_text tiny_p"> Применить</p >
-                    </div >
                 </div>
                 {kategryId || podKategryId ?
-                    <ItemGrid kategryId={kategryId} podKategryId={podKategryId} />
+                    <ItemGrid kategryId={kategryId} currentFilter={currentFilter} podKategryId={podKategryId} />
                     : <></>
                 }
             </div>

@@ -9,7 +9,6 @@ import { fetchAttributeValuesById } from "../../../../../http/attributeValue";
 import { fetchAttributeById } from "../../../../../http/filterApi";
 import { fetchReviewByItemIdAndIsShowed } from "../../../../../http/reviewApi";
 import CustomButton from "../../../../../customUI/customButton/CustomButton";
-import { LOGIN_ROUTE, ITEM_REDUCT_ROUTE } from "../../../../appRouter/Const";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import Rating from "../../../../../components/rating/Rating";
 import ItemReviews from "./itemReviews/ItemReviews";
@@ -57,6 +56,7 @@ function ItemFullPreview() {
                         data.forEach((item) => {
                             fetchAttributeValuesById(item.valueId).then(data => {
                                 const newElement = data;
+                                console.log(data);
                                 setItemAttributeValue(prevState => [...prevState, newElement]);
                             });
                         })
@@ -137,12 +137,13 @@ function ItemFullPreview() {
                         <div className={`container_attribute ${isDescriptionOpen ? "active" : null}`}>
                             <div className="attribute_column attribute_column-left">
                                 {itemAttribute.map((item, index) => (
-                                    <p className="description_p" key={index}>{itemAttribute[index].name}</p>
+                                    item !== null ? <p className="description_p" key={index}>{item.name}</p> : <></>
+
                                 ))}
                             </div>
                             <div className="description_column description_column-right">
                                 {itemAttributeValue.map((item, index) => (
-                                    <p className="description_p" key={index}>{itemAttributeValue[index].name}</p>
+                                    item !== null ? <p className="description_p" key={index}>{item.name}</p> : <></>
                                 ))}
                             </div>
                         </div>

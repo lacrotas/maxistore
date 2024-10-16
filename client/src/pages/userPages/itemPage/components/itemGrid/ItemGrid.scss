@@ -20,5 +20,82 @@
 
     .grid_container_grid {
         margin-top: 10px;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 10px;
+        width: 100%;
+        // justify-items: stretch; 
+        justify-items: center;
+        align-items: center;
+    }
+
+}
+
+@media screen and (max-width: 1915px) {
+    .item_grid_container{
+        .grid_container_grid> :first-child {
+            justify-self: start;
+            /* Левый крайний элемент первого ряда */
+        }
+    
+        .grid_container_grid> :nth-child(4n) {
+            justify-self: end;
+            /* Выровнять каждый 3-й элемент по правому краю */
+        }
+    
+        .grid_container_grid> :nth-child(5n) {
+            justify-self: start;
+        }
+    }
+}
+@media screen and (max-width: 1595px) {
+    .item_grid_container{
+        .grid_container_grid> :first-child {
+            justify-self: start;
+            /* Левый крайний элемент первого ряда */
+        }
+    
+        .grid_container_grid> :nth-child(3n) {
+            justify-self: end;
+            /* Выровнять каждый 3-й элемент по правому краю */
+        }
+    
+        .grid_container_grid> :nth-child(4n) {
+            justify-self: start;
+        }
+    }
+}
+@media screen and (max-width: 1275px) {
+    .item_grid_container{
+        .grid_container_grid> :first-child {
+            justify-self: start;
+            /* Левый крайний элемент первого ряда */
+        }
+    
+        .grid_container_grid> :nth-child(2n) {
+            justify-self: end;
+            /* Выровнять каждый 3-й элемент по правому краю */
+        }
+    
+        .grid_container_grid> :nth-child(3n) {
+            justify-self: start;
+        }
+    }
+}
+@media screen and (max-width: 1245px) {
+    .item_grid_container{
+        .grid_container_grid> :first-child {
+            justify-self: center;
+            /* Левый крайний элемент первого ряда */
+        }
+    
+        .grid_container_grid> :nth-child(2n) {
+            justify-self: center;
+            /* Выровнять каждый 3-й элемент по правому краю */
+        }
+    
+        .grid_container_grid> :nth-child(3n) {
+            justify-self: center;
+        }
     }
 }

@@ -154,10 +154,12 @@ function NewItemReduct() {
                 }
             })
         })
-        missingAttributeValue.map(item=>{
-            postItemAttribute({ itemId: path.id, attributeId: item.attributeId, valueId: item.valueId });
+        if (missingAttributeValue.length > 0) {
+            missingAttributeValue.map(item => {
+                postItemAttribute({ itemId: path.id, attributeId: item.attributeId, valueId: item.valueId });
 
-        })
+            })
+        }
         // update item
         updateItemById(path.id, formData).then(data => {
             if (data) {

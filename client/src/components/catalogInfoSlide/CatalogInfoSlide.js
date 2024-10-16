@@ -43,7 +43,7 @@ function CatalogInfoSlide({ setIsCategoryActive }) {
             pathname: ITEM_ROUTE,
             state: { path: newPath },
         });
-        window.location.reload(); // После навигации принудительно перезагружаем страницу
+        window.location.reload();
     };
 
     return (
