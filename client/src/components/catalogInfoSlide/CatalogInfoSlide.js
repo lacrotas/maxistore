@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 function CatalogInfoSlide({ setIsCategoryActive }) {
     const history = useHistory();
     const [activeCategory, setActiveCategory] = useState(0);
-
     const [mainCategory, setMainCategory] = useState([]);
     const [category, setCategory] = useState([]);
     const [podCategory, setPodCategory] = useState([]);

@@ -8,6 +8,7 @@ import ItemFilter from "./components/itemFilter/ItemFilter";
 import { fetchAllAttributeByKategoryId, fetchAllAttributeByPodKategoryId } from "../../../http/filterApi";
 import ItemGrid from "./components/itemGrid/ItemGrid";
 import Footer from "../../../components/footer/Footer";
+import PriceItem from "../../../components/priceItem/PriceItem";
 
 function ItemPage() {
     const location = useLocation();
@@ -16,6 +17,7 @@ function ItemPage() {
     const [kategryId, setKategoryId] = useState(false);
     const [podKategryId, setPodKategryId] = useState(false);
 
+    const [itemPrice, setItemPrice] = useState({ min: 0, max: 5000 });
     const [currentFilter, setCurrentFilter] = useState([]);
 
     useEffect(() => {
@@ -63,12 +65,13 @@ function ItemPage() {
             <HistoryCatalog path={path} />
             <div className="itemPage_fiter_grid_container">
                 <div className="itemPage_filter_container">
+                    <PriceItem setItemPrice={setItemPrice} />
                     {filter.map((item, index) => (
                         <ItemFilter setNewCurrentFilter={setNewCurrentFilter} item={item} key={index} />
                     ))}
                 </div>
                 {kategryId || podKategryId ?
-                    <ItemGrid kategryId={kategryId} currentFilter={currentFilter} podKategryId={podKategryId} />
+                    <ItemGrid kategryId={kategryId} itemPrice={itemPrice} currentFilter={currentFilter} podKategryId={podKategryId} />
                     : <></>
                 }
             </div>

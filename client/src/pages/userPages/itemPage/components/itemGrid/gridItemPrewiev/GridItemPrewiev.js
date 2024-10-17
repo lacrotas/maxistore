@@ -6,7 +6,7 @@ import { fetchAllAttributeValuesByItemId } from "../../../../../../http/itemAttr
 import { fetchReviewByItemIdAndIsShowed } from "../../../../../../http/reviewApi";
 import { useState, useEffect } from "react";
 
-function GridItemPrewiev({ item, currentFilter }) {
+function GridItemPrewiev({ itemPrice, item, currentFilter }) {
     const [attributesValue, setAttributeValue] = useState([]);
     // const [revies, setRevies] = useState([]);
     const [avarigeMark, setAvarigeMark] = useState([]);
@@ -33,8 +33,12 @@ function GridItemPrewiev({ item, currentFilter }) {
         return (sum / Number(review.length));
     }
     useEffect(() => {
-        setIsRight(checkFilters(currentFilter, attributesValue));
-    }, [currentFilter])
+        if (Number(item.price) > itemPrice.min && Number(item.price) < itemPrice.max) {
+            setIsRight(checkFilters(currentFilter, attributesValue));
+        } else {
+            setIsRight(false);
+        }
+    }, [currentFilter, itemPrice])
 
     function checkFilters(currentFilter, attributesValue) {
         // Группируем элементы currentFilter по attributeId
@@ -82,6 +86,7 @@ function GridItemPrewiev({ item, currentFilter }) {
                             <div className="item_prewiev_container">
                                 <img className="item_prewiev_image" src={process.env.REACT_APP_API_URL + item.image} alt="image" />
                             </div>
+                            <p className="item_prewiev_paragraph tiny_p">{item.isExist ? "Есть в наличии" : "Нет в наличии"}</p>
                             <p className="item_prewiev_paragraph item_prewiev_paragraph-name jura_semi-medium_p">{item.name}</p>
                             {reviesLenght !== 0 ?
                                 <div className="item_prewiev_rating">
@@ -92,7 +97,7 @@ function GridItemPrewiev({ item, currentFilter }) {
                                     <p className="rating_paragraph">Пока у данного товара нет отзывов</p>
                                 </div>
                             }
-                            <p className="item_prewiev_paragraph jura_semi-medium_p">{item.price} р.</p>
+                            <p className="item_prewiev_paragraph jura_semi-medium_p">{item.price} руб.</p>
                         </div>
                     </NavLink >
 

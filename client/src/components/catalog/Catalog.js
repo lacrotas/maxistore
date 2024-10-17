@@ -4,10 +4,12 @@ import CatalogItem from "./catalogItem/CatalogItem";
 import { fetchAllMainKategory } from "../../http/KategoryApi";
 import { fetchAllItemByMainKategoryId } from "../../http/itemApi"
 import { useState, useEffect } from "react";
+import CatalogInfoSlide from "../catalogInfoSlide/CatalogInfoSlide";
 
 export default function Catalog() {
     const [allKategory, setAllKategory] = useState([]);
     const [itemsCounter, setItemsCounter] = useState([]);
+    const [isCategotyActive, setIsCategoryActive] = useState(false);
 
     useEffect(() => {
         fetchAllMainKategory().then(data => {
@@ -20,20 +22,24 @@ export default function Catalog() {
             })
         })
     }, [])
-   
+
     return (
-        <section className="catalog_section">
-            <div className="catalog_container">
-                <h2 className="container_label medium_h">Каталог <br />товаров от Maxistore</h2>
-                <p className="container_paragraph medium_p">Наш интернет-магазин зарегистрирован в Торговом реестре РБ 18.07.2014г</p>
-                <div className="container_button">
-                    <img className="button_image" src={ButtonImage} alt="button" />
-                    <p className="button_text medium_p">В каталог</p>
+        <>
+            <section className="catalog_section">
+                <div className="catalog_container">
+                    <h2 className="container_label medium_h">Каталог <br />товаров от Maxistore</h2>
+                    <p className="container_paragraph medium_p">Наш интернет-магазин зарегистрирован в Торговом реестре РБ 18.07.2014г</p>
+                    <div className="container_button" onClick={() => setIsCategoryActive(true)}>
+                        <img className="button_image" src={ButtonImage} alt="button" />
+                        <p className="button_text medium_p">В каталог</p>
+                    </div>
                 </div>
-            </div>
-            {allKategory.map((item, index) => (
-                <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.name} item_counter={itemsCounter[index]} />
-            ))}
-        </section>
+                {allKategory.map((item, index) => (
+                    <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.name} item_counter={itemsCounter[index]} />
+                ))}
+            </section>
+            {isCategotyActive ? <CatalogInfoSlide setIsCategoryActive={setIsCategoryActive} /> : <></>}
+        </>
+
     );
 }

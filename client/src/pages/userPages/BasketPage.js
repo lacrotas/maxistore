@@ -6,7 +6,7 @@ import Footer from "../../components/footer/Footer";
 function BasketPage() {
     return (
         <>
-            <Headers isAdminHeader={true} />
+            <Headers />
             <HistoryCatalog path={[{ name: "Главная" }, { name: "Корзина" }]} />
             <Busket />
             <Footer />

@@ -29,13 +29,17 @@ const AutoSlider = () => {
     }, [sliders]);
 
     return (
-        <div className="auto-slider">
+        <>
             {sliders.length > 0 ?
-                sliders.map((item, idx) => (
-                    <Slide type={idx === currentIndex ? "current" : idx === nextIndex ? "next" : "none"} key={idx} image={process.env.REACT_APP_API_URL + item.image} label={item.label} description={item.description} />
-                ))
+
+                <div className="auto-slider">
+                    {sliders.map((item, idx) => (
+                        <Slide type={idx === currentIndex ? "current" : idx === nextIndex ? "next" : "none"} key={idx} image={process.env.REACT_APP_API_URL + item.image} label={item.label} description={item.description} />
+                    ))
+                    }
+                </div>
                 : <></>}
-        </div>
+        </>
     );
 };
 

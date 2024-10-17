@@ -3,7 +3,7 @@ import GridItemPrewiev from "./gridItemPrewiev/GridItemPrewiev";
 import { fetchAllItemByKategoryId, fetchAllItemByPodKategoryId } from "../../../../../http/itemApi";
 import { useState, useEffect } from "react";
 
-function ItemGrid({ currentFilter, kategryId, podKategryId }) {
+function ItemGrid({ itemPrice, currentFilter, kategryId, podKategryId }) {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -20,20 +20,23 @@ function ItemGrid({ currentFilter, kategryId, podKategryId }) {
         }
 
     }, [])
-    
+
     return (
         <div className="item_grid_container">
-            <div className="grid_container">
+            {/* <div className="grid_container">
                 <p className="container_paragraph-unactive jura_semi-medium_p">Сортировать по:</p>
                 <p className="container_paragraph jura_semi-medium_p">популярности</p>
                 <p className="container_paragraph jura_semi-medium_p">цене</p>
                 <p className="container_paragraph jura_semi-medium_p">рейтингу</p>
-            </div>
-            <div className="grid_container_grid">
-                {items.map((item) => (
-                    <GridItemPrewiev item={item} currentFilter={currentFilter} />
-                ))}
-            </div>
+            </div> */}
+            {items.length > 0 ?
+                <div className="grid_container_grid">
+                    {items.map((item) => (
+                        <GridItemPrewiev itemPrice={itemPrice} item={item} currentFilter={currentFilter} />
+                    ))}
+                </div>
+                : <p className="item_grid_container_notFound tiny_p">Товаров по вашим критериям пока нет</p>
+            }
         </div>
     )
 }
