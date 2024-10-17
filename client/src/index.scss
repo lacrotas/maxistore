@@ -10,6 +10,24 @@ body {
   background-color: #F5F5F5;
 }
 
+/* Для WebKit-браузеров (Chrome, Safari) */
+::-webkit-scrollbar {
+  display: none;
+  /* Скрываем полосы прокрутки */
+}
+
+/* Для Firefox */
+body {
+  scrollbar-width: none;
+  /* Скрыть скроллбар */
+}
+
+/* Для IE и Edge */
+body {
+  -ms-overflow-style: none;
+  /* Скрыть скроллбар */
+}
+
 @font-face {
   font-family: "Jura_bold";
   src: url("./assets/fonts/Jura-Bold.ttf");
@@ -70,6 +88,7 @@ a {
   font-family: "Montserrat_reg";
   font-size: 24px;
 }
+
 .description_p {
   font-family: "Montserrat_reg";
   font-size: 18px;
@@ -111,7 +130,9 @@ a {
   .small_h {
     font-size: 20px;
   }
-
+  .jura_medium_bold {
+    font-size: 20px;
+  }
   .small_p {
     font-size: 16px;
   }
@@ -127,13 +148,16 @@ a {
   .tiny_p {
     font-size: 14px;
   }
-  .medium_h{
+
+  .medium_h {
     font-size: 28px;
   }
-  .jura_semi-medium_p{
+
+  .jura_semi-medium_p {
     font-size: 16px;
   }
-  .description_p{
+
+  .description_p {
     font-size: 14px;
   }
 }
@@ -142,7 +166,9 @@ a {
   .medium_p {
     font-size: 16px;
   }
-
+  .jura_medium_bold {
+    font-size: 16px;
+  }
   .small_h {
     font-size: 16px;
   }

@@ -8,3 +8,9 @@
     position: relative;
     transition: opacity 0.5s ease-in-out;
 }
+
+@media screen and (max-width: 900px) {
+    .auto-slider {
+        display: none;
+    }
+}

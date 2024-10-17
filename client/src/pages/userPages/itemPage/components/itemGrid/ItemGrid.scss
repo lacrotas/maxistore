@@ -1,7 +1,7 @@
 .item_grid_container {
-    width: calc(100%);
-    margin-left: 20px;
-
+    width: 100%;
+    margin-left: 0px;
+    margin-bottom: 30px;
     .grid_container {
         display: flex;
         background-color: #fff;
@@ -25,10 +25,25 @@
         gap: 20px;
         width: 100%;
         justify-content: space-between;
-        align-items: center;    
+        align-items: center;
     }
-    .item_grid_container_notFound{
+
+    .grid_container_grid.active {
+        width: calc(100% - 350px);
+        margin-left: 350px;
+    }
+
+    .item_grid_container_notFound {
         text-align: center
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .item_grid_container {
+        .grid_container_grid.active {
+            width: 100%;
+            margin-left: 0px;
+        }
     }
 }
 
@@ -38,12 +53,12 @@
 //             justify-self: start;
 //             /* Левый крайний элемент первого ряда */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(4n) {
 //             justify-self: end;
 //             /* Выровнять каждый 3-й элемент по правому краю */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(5n) {
 //             justify-self: start;
 //         }
@@ -55,12 +70,12 @@
 //             justify-self: start;
 //             /* Левый крайний элемент первого ряда */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(3n) {
 //             justify-self: end;
 //             /* Выровнять каждый 3-й элемент по правому краю */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(4n) {
 //             justify-self: start;
 //         }
@@ -72,12 +87,12 @@
 //             justify-self: start;
 //             /* Левый крайний элемент первого ряда */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(2n) {
 //             justify-self: end;
 //             /* Выровнять каждый 3-й элемент по правому краю */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(3n) {
 //             justify-self: start;
 //         }
@@ -89,12 +104,12 @@
 //             justify-self: center;
 //             /* Левый крайний элемент первого ряда */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(2n) {
 //             justify-self: center;
 //             /* Выровнять каждый 3-й элемент по правому краю */
 //         }
-    
+
 //         .grid_container_grid> :nth-child(3n) {
 //             justify-self: center;
 //         }

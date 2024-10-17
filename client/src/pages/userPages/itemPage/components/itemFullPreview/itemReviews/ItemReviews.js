@@ -6,7 +6,6 @@ import CustomButton from "../../../../../../customUI/customButton/CustomButton";
 import ModalWindow from "../../../../../../components/modalWindow/ModalWindow";
 import { fetchReviewByItemIdAndIsShowed } from "../../../../../../http/reviewApi";
 
-
 function ItemReviews({ itemId }) {
     const [ratingArr, setRaitingArr] = useState([1, 2, 3, 4, 5]);
     const [review, setReview] = useState([]);
@@ -138,7 +137,7 @@ function ItemReviews({ itemId }) {
                 }
                 {review.length === 0 &&
                     <div className="section_flex-none">
-                        <p className="flex_paragraph small_p">Пока к этому товару нет отзывов. Помогите другим оценить этот товар написав свой отзыв</p>
+                        <p className="flex_paragraph description_p">Пока к этому товару нет отзывов. Помогите другим оценить этот товар написав свой отзыв</p>
                         <CustomButton text={"Написать отзыв"} dealOnClick={setIsModalActive} value={true} />
                     </div>
                 }

@@ -9,6 +9,8 @@ import { fetchAllAttributeByKategoryId, fetchAllAttributeByPodKategoryId } from 
 import ItemGrid from "./components/itemGrid/ItemGrid";
 import Footer from "../../../components/footer/Footer";
 import PriceItem from "../../../components/priceItem/PriceItem";
+import LeftArrowImage from "../../../assets/images/arrow.png";
+import RightArrowImage from "../../../assets/images/arrowRight.png";
 
 function ItemPage() {
     const location = useLocation();
@@ -19,6 +21,8 @@ function ItemPage() {
 
     const [itemPrice, setItemPrice] = useState({ min: 0, max: 5000 });
     const [currentFilter, setCurrentFilter] = useState([]);
+
+    const [isFilterOpen, setIsFilterOpen] = useState(true);
 
     useEffect(() => {
         if ((path.length - 1) === 2) {
@@ -64,14 +68,19 @@ function ItemPage() {
             <Headers />
             <HistoryCatalog path={path} />
             <div className="itemPage_fiter_grid_container">
-                <div className="itemPage_filter_container">
+                <div className={`itemPage_filter_container ${isFilterOpen ? "active" : "unactive"}`}>
                     <PriceItem setItemPrice={setItemPrice} />
-                    {filter.map((item, index) => (
-                        <ItemFilter setNewCurrentFilter={setNewCurrentFilter} item={item} key={index} />
-                    ))}
+                    <div className="filter_container_button">
+                        <img className="container_button-image" src={isFilterOpen ? LeftArrowImage : RightArrowImage} onClick={() => setIsFilterOpen(!isFilterOpen)} alt="arrow" />
+                    </div>
+                    <div className="filter_container_items">
+                        {filter.map((item, index) => (
+                            <ItemFilter setNewCurrentFilter={setNewCurrentFilter} item={item} key={index} />
+                        ))}
+                    </div>
                 </div>
                 {kategryId || podKategryId ?
-                    <ItemGrid kategryId={kategryId} itemPrice={itemPrice} currentFilter={currentFilter} podKategryId={podKategryId} />
+                    <ItemGrid isFilterOpen={isFilterOpen} kategryId={kategryId} itemPrice={itemPrice} currentFilter={currentFilter} podKategryId={podKategryId} />
                     : <></>
                 }
             </div>

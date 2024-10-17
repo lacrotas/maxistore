@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 const corsOptions = {
-    origin: ['https://mobilebroadcast.org', 'https://mobilebroadcast.dev', 'http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://81.91.190.95:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     credentials: true,

@@ -3,7 +3,7 @@ import GridItemPrewiev from "./gridItemPrewiev/GridItemPrewiev";
 import { fetchAllItemByKategoryId, fetchAllItemByPodKategoryId } from "../../../../../http/itemApi";
 import { useState, useEffect } from "react";
 
-function ItemGrid({ itemPrice, currentFilter, kategryId, podKategryId }) {
+function ItemGrid({ isFilterOpen, itemPrice, currentFilter, kategryId, podKategryId }) {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -30,7 +30,7 @@ function ItemGrid({ itemPrice, currentFilter, kategryId, podKategryId }) {
                 <p className="container_paragraph jura_semi-medium_p">рейтингу</p>
             </div> */}
             {items.length > 0 ?
-                <div className="grid_container_grid">
+                <div className={`grid_container_grid ${isFilterOpen ? "" : "active"}`}>
                     {items.map((item) => (
                         <GridItemPrewiev itemPrice={itemPrice} item={item} currentFilter={currentFilter} />
                     ))}

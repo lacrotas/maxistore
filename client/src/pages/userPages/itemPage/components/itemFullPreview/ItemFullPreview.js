@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import Rating from "../../../../../components/rating/Rating";
 import ItemReviews from "./itemReviews/ItemReviews";
 import CustomAlert from "../../../../../components/customAlert/CustomAlert";
+import OpenArrow from "../../../../../assets/images/arrow.png";
+import Arrowleft from "../../../../../assets/images/arrowRight.png";
 
 function ItemFullPreview() {
     const { id } = useParams();
@@ -22,7 +24,6 @@ function ItemFullPreview() {
 
     const [imageLenght, setImageLenght] = useState([]);
     const [currentMainImage, setCurrentMainImage] = useState("");
-    const [isDescriptionOpen, setIsDescriptionOpen] = useState(true);
     const [selectedItemImage, setSelectedItemImage] = useState(0);
 
     const [item, setItem] = useState("");
@@ -99,6 +100,47 @@ function ItemFullPreview() {
         ];
     }
 
+    // for page scrolling
+    useEffect(() => {
+        const scrollableElement = document.querySelector('.container_attribute-scrollable');
+
+        if (scrollableElement) {
+            function preventScrollPropagation(event) {
+                const element = event.target;
+                const atTop = element.scrollTop === 0;
+                const atBottom = element.scrollHeight - element.scrollTop === element.clientHeight;
+
+                if ((atTop && event.deltaY < 0) || (atBottom && event.deltaY > 0)) {
+                    return;
+                }
+
+                event.stopPropagation();
+            }
+
+            scrollableElement.addEventListener('wheel', preventScrollPropagation);
+
+            // Удаляем обработчик при размонтировании компонента
+            return () => {
+                scrollableElement.removeEventListener('wheel', preventScrollPropagation);
+            };
+        }
+    }, []); // Хук с пустым массивом, чтобы сработал только при монтировании
+
+    function setNewImageIndex(operation) {
+        if (operation === "minus") {
+            if (selectedItemImage > 0) {
+                setSelectedItemImage(selectedItemImage - 1);
+            } else {
+                setSelectedItemImage(imageLenght.length - 1);
+            }
+        } else {
+            if (imageLenght.length > selectedItemImage) {
+                setSelectedItemImage(selectedItemImage + 1);
+            } else {
+                setSelectedItemImage(0);
+            }
+        }
+    }
     return (
         <>
             {isAlertActive && <CustomAlert setIsModalActive={setIsAlertActive} text={"Товар успешно добавлен в корзину"} />}
@@ -112,7 +154,10 @@ function ItemFullPreview() {
                             <p className="rating_paragraph tiny_p">{item.reviewNumber + " " + `${getWordEnding(item.reviewNumber, endings)}`}</p>
                             {item.isExist ? <p className="rating_paragraph-exist tiny_p">В наличии</p> : <p className="rating_paragraph-unexist tiny_p">нет в наличии</p>}
                         </div>
-                        <CustomButton dealOnClick={addToBusket} text={"Добавить в корзину"} />
+                        <div className="container_busket">
+                            <p className="container_busket-paragraph jura_medium_bold">{item.price} Руб.</p>
+                            <CustomButton dealOnClick={addToBusket} text={"Добавить в корзину"} />
+                        </div>
                     </div>
                 </div>
                 <div className="newItem_container">
@@ -122,33 +167,41 @@ function ItemFullPreview() {
                                 <img key={index} className={`image_image--main ${selectedItemImage == index ? "active" : ""}`} onClick={() => setSelectedItemImage(index)} src={process.env.REACT_APP_API_URL + item} alt="empty" />
                             ))}
                         </div>
+                        <img className="container_image_button" src={Arrowleft} alt="arrow" onClick={() => setNewImageIndex("minus")} />
                         <div className="current_slider_reduct-file">
                             <img className="file_image" src={process.env.REACT_APP_API_URL + imageLenght[selectedItemImage]} alt="updateImage" />
                         </div>
+                        <img className="container_image_button" onClick={() => setNewImageIndex("plus")} src={OpenArrow} alt="arrow" />
                     </div>
                     <div className="container_description_attribute">
                         <div className="container_header">
-                            <p className={`description_paragraph jura_medium_bold ${isDescriptionOpen ? "active" : null}`} onClick={() => setIsDescriptionOpen(true)}>Описание товара</p>
-                            <p className={`description_paragraph jura_medium_bold ${!isDescriptionOpen ? "active" : null}`} onClick={() => setIsDescriptionOpen(false)}>Характеристики</p>
+                            <p className={`description_paragraph jura_medium_bold`}>О товаре</p>
+                            <a href="#description">
+                                <div className="container_header_button">
+                                    <p className={`container_header_p tiny_p`}>Перейти к описанию</p>
+                                    <img className="container_header_image" src={OpenArrow} alt="arrow" />
+                                </div>
+                            </a>
                         </div>
-                        <div className={`container_description ${!isDescriptionOpen ? "active" : null}`}>
-                            <p className="attribute_paragraph small_p">{item.description}</p>
-                        </div>
-                        <div className={`container_attribute ${isDescriptionOpen ? "active" : null}`}>
+                        <div className={`container_attribute-scrolleble`}>
                             <div className="attribute_column attribute_column-left">
                                 {itemAttribute.map((item, index) => (
-                                    item !== null ? <p className="description_p" key={index}>{item.name}</p> : <></>
+                                    item !== null ? <div className="description_column_paragraph"> <p className="description_column_p tiny_p" key={index}>{item.name}</p></div> : <></>
 
                                 ))}
                             </div>
-                            <div className="description_column description_column-right">
+                            <div className="attribute_column attribute_column-right">
                                 {itemAttributeValue.map((item, index) => (
-                                    item !== null ? <p className="description_p" key={index}>{item.name}</p> : <></>
+                                    item !== null ? <div className="description_column_paragraph"> <p className="description_column_p tiny_p" key={index}>{item.name}</p></div> : <></>
                                 ))}
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className="newItem_description">
+                <p className={`medium_p jura_medium_bold`} id="description">Описание товара</p>
+                <p className={`attribute_paragraph description_p`}>{item.description}</p>
             </div>
             <ItemReviews itemId={id} reviewNumber={"1"} />
             <Footer />

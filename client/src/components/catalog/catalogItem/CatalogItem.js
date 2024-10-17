@@ -1,5 +1,5 @@
 import "./CatalogItem.scss";
-export default function CatalogItem({ counter, image, label, item_counter }) {
+export default function CatalogItem({ setIsCategoryActive, counter, image, label, item_counter }) {
     const endings = ['товар', 'товара', 'товаров'];
 
     function getWordEnding(number, words) {
@@ -12,7 +12,7 @@ export default function CatalogItem({ counter, image, label, item_counter }) {
     }
 
     return (
-        <div className="catalog_item">
+        <div className="catalog_item" onClick={() => setIsCategoryActive(true)}>
             <div className="item_container">
                 <h2 className="item_counter medium_p">{counter}</h2>
                 <p className="item_paragraph--counter medium_p">{item_counter} {`${getWordEnding(item_counter, endings)}`}</p>

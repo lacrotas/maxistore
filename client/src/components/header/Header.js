@@ -78,7 +78,7 @@ export default function Headers({ isAdminHeader }) {
                     <img className="buttons_image" onClick={() => setIsBurgerOpen(!isBurgerOpen)} src={ListImage} alt="truck_Image" />
                 </div>
             </header >
-            <div className={`burger_menu ${isBurgerOpen ? "active" : "unactive"}`} style={!isCategotyActive ? { display: "none" } : { display: "block"}}>
+            <div className={`burger_menu ${isBurgerOpen ? "active" : "unactive"}`} style={isCategotyActive ? { display: "none" } : { display: "block"}}>
                 <p onClick={() => handleBurgerClose(setIsCategoryActive, true)} className="medium_p">Категории</p>
                 <p onClick={() => handleBurgerClose(openModal, "delivery")} className="medium_p">Доставка</p>
                 <p onClick={() => handleBurgerClose(openModal, "delivery")} className="medium_p">Оплата</p>
