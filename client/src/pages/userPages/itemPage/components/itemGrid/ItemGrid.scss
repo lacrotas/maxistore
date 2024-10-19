@@ -40,6 +40,9 @@
 
 @media screen and (max-width: 760px) {
     .item_grid_container {
+        .grid_container_grid{
+            justify-items: center;
+        }
         .grid_container_grid.active {
             width: 100%;
             margin-left: 0px;

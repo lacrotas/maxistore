@@ -1,5 +1,8 @@
 import "./CatalogItem.scss";
-export default function CatalogItem({ setIsCategoryActive, counter, image, label, item_counter }) {
+import { ITEM_MAIN_ROUTE } from "../../../pages/appRouter/Const";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+
+export default function CatalogItem({ itemId, counter, image, label, item_counter }) {
     const endings = ['товар', 'товара', 'товаров'];
 
     function getWordEnding(number, words) {
@@ -12,13 +15,15 @@ export default function CatalogItem({ setIsCategoryActive, counter, image, label
     }
 
     return (
-        <div className="catalog_item" onClick={() => setIsCategoryActive(true)}>
-            <div className="item_container">
-                <h2 className="item_counter medium_p">{counter}</h2>
-                <p className="item_paragraph--counter medium_p">{item_counter} {`${getWordEnding(item_counter, endings)}`}</p>
-                <p className="item_paragraph--name small_h">{label}</p>
-                <img className="item_image" src={process.env.REACT_APP_API_URL + image} alt="catalog" />
+        <NavLink to={{ pathname: ITEM_MAIN_ROUTE + "/" + itemId, state: { path: { name: label } } }}>
+            <div className="catalog_item">
+                <div className="item_container">
+                    <h2 className="item_counter medium_p">{counter}</h2>
+                    <p className="item_paragraph--counter medium_p">{item_counter} {`${getWordEnding(item_counter, endings)}`}</p>
+                    <p className="item_paragraph--name small_h">{label}</p>
+                    <img className="item_image" src={process.env.REACT_APP_API_URL + image} alt="catalog" />
+                </div>
             </div>
-        </div>
+        </NavLink >
     );
 }

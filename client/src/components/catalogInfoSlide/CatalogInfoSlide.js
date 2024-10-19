@@ -69,6 +69,9 @@ function CatalogInfoSlide({ setIsCategoryActive }) {
                         </div>
                     </div>
                 ))}
+                <div className="custom_button" onClick={() => setIsCategoryActive(false)}>
+                    <p className="custom_button_text tiny_p">Закрыть</p>
+                </div>
             </div>
             <div className="catalogSlide_close" onClick={() => setIsCategoryActive(false)}></div>
         </div>

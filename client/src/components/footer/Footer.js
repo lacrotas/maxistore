@@ -38,8 +38,10 @@ function Footer() {
                     <img src={LogoImage} alt="logo" className="container_image" />
                     <div className="container_contact">
                         <p className="contact_label medium_p">Связаться с нами</p>
+                        <div className="container_contact_phones">
                         <p className="contact_item small_p">+375 33 677-92-60</p>
                         <p className="contact_item small_p">+375 29 120-11-90</p>
+                        </div>
                     </div>
                 </div>
                 <p className="footer_copyright small_p">copyright © Maxistore 2024</p>

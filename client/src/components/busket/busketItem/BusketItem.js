@@ -7,20 +7,20 @@ function BusketItem({ setIsModalactive, item, setFinalSum, index }) {
     const [price, setPrice] = useState(item.price);
 
     function changeCounter(type) {
-        if (type === "minus") {
-            if (counter === 0) {
-                return
-            } else {
-                setCounter(counter - 1);
-                setPrice(item.price * (counter - 1));
+        setCounter((prevCounter) => {
+            if (type === "minus" && prevCounter === 0) {
+                return prevCounter;
             }
-        }
-        if (type === "plus") {
-            setCounter(counter + 1);
-            setPrice(item.price * (counter + 1));
-        }
-        setFinalSum(item.price * (counter))
+
+            const newCounter = type === "minus" ? prevCounter - 1 : prevCounter + 1;
+            setPrice(item.price * newCounter);
+            setFinalSum(item.price * newCounter);
+            return newCounter;
+        });
     }
+
+
+
     return (
         <div className="busketItem">
             <img src={process.env.REACT_APP_API_URL + item.image} className="busket_image" alt="busket" />

@@ -3,7 +3,7 @@ import {
     MAIN_ROUTE, BUSKET_ROUTE, ITEM_ROUTE, AMIN_MAIN_ROUTE, SLIDER_REDUCT_ROUTE, ITEM_PREVIEW_ROUTE,
     SLIDE_ADD_ROUTE, KATEGORY_REDUCT_ROUTE, CURRENT_KATEGORY_REDUCT_ROUTE, LOGIN_ROUTE, CURRENT_POD_KATEGORY_REDUCT_ROUTE,
     FILTER_REDUCT_ROUTE, CURRENT_KATEGORY_FILTER_REDUCT_ROUTE, ITEM_REDUCT_ROUTE, NEW_ITEM_POST_ROUTE, NEW_ITEM_REDUCT_ROUTE,
-    QWESTION_REDUCT_ROUTE, REVIEW_REDUCT_ROUTE, CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE, ITEM_SEARCH_ROUTE
+    QWESTION_REDUCT_ROUTE, REVIEW_REDUCT_ROUTE, CURRENT_POD_KATEGORY_FILTER_REDUCT_ROUTE, ITEM_SEARCH_ROUTE, ITEM_MAIN_ROUTE
 } from './Const';
 import BasketPage from "../userPages/BasketPage";
 import ItemPage from "../userPages/itemPage/ItemPage";
@@ -24,6 +24,8 @@ import NewItemReduct from "../adminPages/itemReduct/newItemReduct/NewItemReduct"
 import ItemFullPreview from "../userPages/itemPage/components/itemFullPreview/ItemFullPreview";
 import PodKategoryFilterReduct from "../adminPages/filterReduct/components/podKategoryFilterReduct/PodKategoryFilterReduct";
 import ItemSearchPage from "../userPages/itemSearchPage/ItemSearchPage";
+import ItemPageMainKategory from "../userPages/itemPageMainKategory/ItemPageMainKategory";
+
 export const publicRoutes = [
     {
         path: MAIN_ROUTE,
@@ -49,10 +51,10 @@ export const publicRoutes = [
         path: ITEM_PREVIEW_ROUTE + '/:id',
         Component: ItemFullPreview
     },
-    // {
-    //     path: CITY_ROUTE + '/:id',
-    //     Component: CurrentCityPage
-    // },
+    {
+        path: ITEM_MAIN_ROUTE + '/:id',
+        Component: ItemPageMainKategory
+    },
 ];
 
 export const adminRoutes = [

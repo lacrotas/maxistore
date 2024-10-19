@@ -39,9 +39,11 @@ function Busket() {
             const itemsArr = setBusketItems();
             itemsArr.map((item) => {
                 fetchItemId(item).then(data => {
-                    const newElement = data;
-                    setFinalSum(prevState => [...prevState + data.price]);
-                    setItemsArr(prevState => [...prevState, newElement]);
+                    if (data) {
+                        const newElement = data;
+                        setFinalSum(prevState => [...prevState + Number(data.price)]);
+                        setItemsArr(prevState => [...prevState, newElement]);
+                    }
                 })
             })
             if (isModalActive) {

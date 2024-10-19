@@ -160,6 +160,9 @@ a {
   .description_p {
     font-size: 14px;
   }
+  .super_large_p{
+    font-size: 26px;
+  }
 }
 
 @media screen and (max-width: 720px) {
@@ -183,5 +186,8 @@ a {
 
   .tiny_p {
     font-size: 14px;
+  }
+  .super_large_p{
+    font-size: 22px;
   }
 }

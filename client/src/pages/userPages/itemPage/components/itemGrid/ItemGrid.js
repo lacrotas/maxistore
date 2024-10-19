@@ -31,8 +31,8 @@ function ItemGrid({ isFilterOpen, itemPrice, currentFilter, kategryId, podKategr
             </div> */}
             {items.length > 0 ?
                 <div className={`grid_container_grid ${isFilterOpen ? "" : "active"}`}>
-                    {items.map((item) => (
-                        <GridItemPrewiev itemPrice={itemPrice} item={item} currentFilter={currentFilter} />
+                    {items.map((item, index) => (
+                        <GridItemPrewiev itemPrice={itemPrice} item={item} currentFilter={currentFilter} key={index} />
                     ))}
                 </div>
                 : <p className="item_grid_container_notFound tiny_p">Товаров по вашим критериям пока нет</p>

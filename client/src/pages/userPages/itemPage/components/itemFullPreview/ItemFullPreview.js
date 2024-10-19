@@ -134,7 +134,7 @@ function ItemFullPreview() {
                 setSelectedItemImage(imageLenght.length - 1);
             }
         } else {
-            if (imageLenght.length > selectedItemImage) {
+            if (imageLenght.length - 1 > selectedItemImage) {
                 setSelectedItemImage(selectedItemImage + 1);
             } else {
                 setSelectedItemImage(0);
@@ -145,6 +145,10 @@ function ItemFullPreview() {
         <>
             {isAlertActive && <CustomAlert setIsModalActive={setIsAlertActive} text={"Товар успешно добавлен в корзину"} />}
             <Headers />
+            <div className="container_busket_small">
+                <p className="container_busket-paragraph jura_medium_bold">{item.price} Руб.</p>
+                <CustomButton dealOnClick={addToBusket} text={"В корзину"} />
+            </div>
             <div className="newItem">
                 <div className="newItem_header">
                     <h2 className="small_h">{item.name}</h2>
@@ -160,6 +164,24 @@ function ItemFullPreview() {
                         </div>
                     </div>
                 </div>
+                <div className="newItem_slider-small">
+                    <div className="newItem_slider-small_container">
+                        <img className="container_image_button" src={Arrowleft} alt="arrow" onClick={() => setNewImageIndex("minus")} />
+                        <div className="slider-container">
+                            <img src={process.env.REACT_APP_API_URL + imageLenght[selectedItemImage]} onClick={() => setNewImageIndex("plus")} alt={`slide-${selectedItemImage}`} />
+                        </div>
+                        <img className="container_image_button" onClick={() => setNewImageIndex("plus")} src={OpenArrow} alt="arrow" />
+                    </div>
+                    <div className="dots">
+                        {imageLenght.map((_, index) => (
+                            <span
+                                key={index}
+                                className={`dot ${selectedItemImage === index ? "active" : ""}`}
+                                onClick={() => setNewImageIndex(index)}
+                            ></span>
+                        ))}
+                    </div>
+                </div>
                 <div className="newItem_container">
                     <div className="container_image">
                         <div className="image_container--left">
@@ -173,6 +195,7 @@ function ItemFullPreview() {
                         </div>
                         <img className="container_image_button" onClick={() => setNewImageIndex("plus")} src={OpenArrow} alt="arrow" />
                     </div>
+
                     <div className="container_description_attribute">
                         <div className="container_header">
                             <p className={`description_paragraph jura_medium_bold`}>О товаре</p>

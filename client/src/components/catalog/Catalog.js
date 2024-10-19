@@ -35,7 +35,7 @@ export default function Catalog() {
                     </div>
                 </div>
                 {allKategory.map((item, index) => (
-                    <CatalogItem setIsCategoryActive={setIsCategoryActive} counter={"0" + (index + 1)} image={item.image} label={item.name} item_counter={itemsCounter[index]} />
+                    <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.name} itemId={item.id} item_counter={itemsCounter[index]} />
                 ))}
             </section>
             {isCategotyActive ? <CatalogInfoSlide setIsCategoryActive={setIsCategoryActive} /> : <></>}
