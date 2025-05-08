@@ -8,9 +8,11 @@ function MainPage() {
     return (
         <div className="App">
             <Headers />
-            <AutoSlider />
-            <Catalog />
-            <Qwestion />
+            <div className="app_container">
+                <AutoSlider />
+                <Catalog />
+                <Qwestion />
+            </div>
             <Footer />
         </div>
     );

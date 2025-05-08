@@ -1,11 +1,14 @@
 .qwestion {
     background-color: #fff;
     padding: 50px;
-
+    display: flex;
+    justify-content: center;
+    width: calc(100vw - 100px);
     .qwestion_list {
         text-decoration: none;
         list-style: none;
         padding: 0;
+        max-width: 800px;
 
         .list_item.unactive {
             .qwestion_description {
@@ -29,7 +32,7 @@
             .qwestion_description {
                 transition: max-height 0.5s ease-out, padding 0.5s ease-out;
                 max-height: 200px;
-                padding: 10px 0;
+                padding: 0 0 10px 0;
             }
 
             .qwestion_header {

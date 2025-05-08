@@ -52,7 +52,6 @@ function Busket() {
                 document.body.style.overflow = '';
             }
             isBuilded = false;
-            // Возвращаем функцию, которая будет выполняться при размонтировании компонента
             return () => {
                 document.body.style.overflow = '';
             };
@@ -80,9 +79,6 @@ function Busket() {
                         <BusketItem key={index} setIsModalactive={openPromp} index={index} item={item} setFinalSum={setFinalSum} />
                     ))
                 }
-                {/* <BusketItem setIsModalactive={setIsModalactive} />
-                <BusketItem setIsModalactive={setIsModalactive} />
-                <BusketItem setIsModalactive={setIsModalactive} /> */}
                 <BusketFinal finalsum={finalsum} />
             </div>
         </>

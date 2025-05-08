@@ -1,6 +1,8 @@
 body {
   margin: 0;
   width: 100vw;
+  display: flex;
+  justify-content: center;
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -9,25 +11,37 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #F5F5F5;
 }
+.app_container{
+  max-width: 1800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
 /* Для WebKit-браузеров (Chrome, Safari) */
 ::-webkit-scrollbar {
   display: none;
-  /* Скрываем полосы прокрутки */
 }
 
 /* Для Firefox */
 body {
   scrollbar-width: none;
-  /* Скрыть скроллбар */
 }
 
 /* Для IE и Edge */
 body {
   -ms-overflow-style: none;
-  /* Скрыть скроллбар */
 }
 
+
+// fonts family
 @font-face {
   font-family: "Jura_bold";
   src: url("./assets/fonts/Jura-Bold.ttf");
@@ -43,16 +57,14 @@ body {
   src: url("./assets/fonts/Montserrat-Regular.ttf");
 }
 
-.App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.common_reg{
+  font-family: "Montserrat_reg";
 }
-
-// fonts
-.jura_bold {
+.common_bold{
   font-family: "Jura_bold";
+}
+.title_bold{
+  font-family: "Montserrat_bold";
 }
 
 a {
@@ -60,63 +72,39 @@ a {
   color: #000;
 }
 
-.monserat_bold {
-  font-family: "Montserrat_bold";
+// paragraph
+.tiny_p{
+  font-size: 14px;
 }
-
-.tiny_p {
-  font-family: "Jura_bold";
-  font-size: 16px;
-}
-
-.jura_semi-medium_p {
-  font-family: "Jura_bold";
-  font-size: 20px;
-}
-
-.jura_medium_bold {
-  font-family: "Jura_bold";
-  font-size: 24px;
-}
-
-.super_large_p {
-  font-family: "Jura_bold";
-  font-size: 30px;
-}
-
-.medium_p {
-  font-family: "Montserrat_reg";
-  font-size: 24px;
-}
-
-.description_p {
-  font-family: "Montserrat_reg";
+.small_p {
+  // font-family: "Montserrat_reg";
   font-size: 18px;
 }
 
-.small_p {
-  font-family: "Montserrat_reg";
-  font-size: 20px;
+.medium_p {
+  // font-family: "Montserrat_reg";
+  font-size: 18px;
 }
 
 .large_p {
   font-size: 24px;
-  font-family: "Jura_bold";
+  // font-family: "Jura_bold";
 }
 
+// titles
 .small_h {
-  font-family: "Montserrat_bold";
-  font-size: 24px;
+  // font-family: "Montserrat_bold";
+  font-size: 20px;
 }
 
 .medium_h {
-  font-family: "Montserrat_bold";
-  font-size: 32px;
+  // font-family: "Montserrat_bold";
+  font-size: 26px;
 }
 
 .large_h {
-  font-family: "Montserrat_bold";
-  font-size: 46px;
+  // font-family: "Montserrat_bold";
+  font-size: 36px;
 }
 
 // buttons

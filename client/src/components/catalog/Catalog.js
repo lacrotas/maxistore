@@ -27,14 +27,14 @@ export default function Catalog() {
         <>
             <section className="catalog_section">
                 <div className="catalog_container">
-                    <h2 className="container_label medium_h">Каталог <br />товаров от Maxistore</h2>
-                    <p className="container_paragraph medium_p">Наш интернет-магазин зарегистрирован в Торговом реестре РБ 18.07.2014г</p>
+                    <h2 className="container_label medium_h title_bold">Каталог <br />товаров от Maxistore</h2>
+                    <p className="container_paragraph medium_p common_reg">Наш интернет-магазин зарегистрирован в Торговом реестре РБ 18.07.2014г</p>
                     <div className="container_button" onClick={() => setIsCategoryActive(true)}>
                         <img className="button_image" src={ButtonImage} alt="button" />
-                        <p className="button_text medium_p">В каталог</p>
+                        <p className="button_text medium_p common_reg">В каталог</p>
                     </div>
                 </div>
-                {allKategory.map((item, index) => (
+                {allKategory.length > 0 && allKategory.map((item, index) => (
                     <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.name} itemId={item.id} item_counter={itemsCounter[index]} />
                 ))}
             </section>

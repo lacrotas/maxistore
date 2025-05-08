@@ -24,10 +24,10 @@ export default function Qwestion() {
                         <div className="qwestion_header">
                             <img className="header_image-closed" src={ArrowImage} alt="arrow" />
                             <img className="header_image-open" src={ArrowOpenImage} alt="arrow" />
-                            <h3 className="header_label medium_p">{item.qwestion}</h3>
+                            <h3 className="header_label medium_p title_bold">{item.qwestion}</h3>
                         </div>
                         <div className="qwestion_description">
-                            <p className="description_text medium_p">{item.description}</p>
+                            <p className="description_text medium_p common_reg">{item.description}</p>
                         </div>
                     </li>
                 ))}

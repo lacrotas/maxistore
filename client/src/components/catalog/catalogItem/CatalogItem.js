@@ -18,9 +18,9 @@ export default function CatalogItem({ itemId, counter, image, label, item_counte
         <NavLink to={{ pathname: ITEM_MAIN_ROUTE + "/" + itemId, state: { path: { name: label } } }}>
             <div className="catalog_item">
                 <div className="item_container">
-                    <h2 className="item_counter medium_p">{counter}</h2>
-                    <p className="item_paragraph--counter medium_p">{item_counter} {`${getWordEnding(item_counter, endings)}`}</p>
-                    <p className="item_paragraph--name small_h">{label}</p>
+                    <h2 className="item_counter medium_p common_reg">{counter}</h2>
+                    <p className="item_paragraph--counter medium_p common_reg">{item_counter} {`${getWordEnding(item_counter, endings)}`}</p>
+                    <p className="item_paragraph--name small_h title_bold">{label}</p>
                     <img className="item_image" src={process.env.REACT_APP_API_URL + image} alt="catalog" />
                 </div>
             </div>

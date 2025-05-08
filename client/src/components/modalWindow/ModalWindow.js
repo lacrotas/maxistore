@@ -7,8 +7,14 @@ import AddCategory from "./content/addCategory/AddCategory";
 import AddAttributeValue from "./content/addAttributevalue/AddAttributeValue";
 import ReductImage from "./content/reductImage/ReductImage";
 import AddReview from "./content/addReview/AddReview";
+import { useEffect } from 'react'
 
 function ModalWindow({ setIsModalActive, type, value, addImageToArray }) {
+    useEffect(() => {
+        document.body.classList.add('modal-open');
+        return () => document.body.classList.remove('modal-open');
+    }, []);
+    
     return (
         <div className="modal">
             <div className="modal_content">
