@@ -61,7 +61,7 @@ function ReviewReduct() {
                             {unShowedReviewsNumber ? reviews.map((item, index) => (
                                 !item.isShowed ?
                                     <div className="review_reduct_item" key={index}>
-                                        <p className="tiny_p">{item.label}</p>
+                                        <p className="tiny_p">{item.description}</p>
                                         <CustomButton dealOnClick={reductReview} value={item} text={"Редактировать"} />
                                     </div>
                                     : <></>

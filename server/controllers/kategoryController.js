@@ -35,6 +35,13 @@ class kategoryController {
         );
         return res.json(kategory);
     }
+    async getKategoryById(req, res) {
+        const { id } = req.params
+        const kategory = await Kategory.findOne(
+            { where: { id } }
+        )
+        return res.json(kategory);
+    }
     async deleteKategoryById(req, res) {
         const { id } = req.params
         const kategory = await Kategory.findOne(

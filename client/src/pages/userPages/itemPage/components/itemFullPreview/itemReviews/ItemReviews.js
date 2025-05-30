@@ -50,11 +50,11 @@ function ItemReviews({ itemId }) {
             })
         }
         let raitingArr = [
-            { mark: oneMark, procentMark: Math.round(((oneMark / Number(review.length)) * 100)) },
-            { mark: twoMark, procentMark: Math.round(((twoMark / Number(review.length)) * 100)) },
-            { mark: threeMark, procentMark: Math.round(((threeMark / Number(review.length)) * 100)) },
-            { mark: fourMark, procentMark: Math.round(((fourMark / Number(review.length)) * 100)) },
             { mark: fiveMark, procentMark: Math.round(((fiveMark / Number(review.length)) * 100)) },
+            { mark: fourMark, procentMark: Math.round(((fourMark / Number(review.length)) * 100)) },
+            { mark: threeMark, procentMark: Math.round(((threeMark / Number(review.length)) * 100)) },
+            { mark: twoMark, procentMark: Math.round(((twoMark / Number(review.length)) * 100)) },
+            { mark: oneMark, procentMark: Math.round(((oneMark / Number(review.length)) * 100)) },
         ];
 
         setRaitingArr(raitingArr)
@@ -103,7 +103,7 @@ function ItemReviews({ itemId }) {
                             <div className="section_header_procentmarks">
                                 {ratingArr.map((item, index) => (
                                     <div className="header_procentMarks" key={index}>
-                                        <p className="tiny_p procentMarks_paragraph">{index + 1}</p>
+                                        <p className="tiny_p procentMarks_paragraph">{index + (5 - 2 * index)}</p>
                                         <svg
                                             key={index}
                                             xmlns="http://www.w3.org/2000/svg"

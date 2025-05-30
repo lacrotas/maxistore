@@ -1,6 +1,8 @@
 .catalog_section {
     margin-top: 50px;
-    padding: 10px 50px 50px 50px;
+    padding: 10px 20px 50px 20px;
+    max-width: 1820px;
+    width: calc(100vw - 40px);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 40px;
@@ -36,8 +38,8 @@
 
             &:hover {
                 .button_image {
-                    transform: translateX(5px) scale(1.1); 
-                    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.5); 
+                    transform: translateX(5px) scale(1.1);
+                    transition: transform 0.3s cubic-bezier(0.25, 0.1, 0.25, 1.5);
                 }
 
                 .button_text {
@@ -52,11 +54,13 @@
 
 }
 
-// @media screen and (max-width: 900px) {
-//     .catalog_section {
-//         padding: 0 30px;
-//     }
-// }
+@media screen and (max-width: 900px) {
+    .catalog_section {
+        .catalog_container {
+            height: 270px;
+        }
+    }
+}
 
 // @media screen and (max-width: 760px) {
 //     .catalog_section {

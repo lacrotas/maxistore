@@ -5,6 +5,7 @@ const { authenticateToken } = require('../middleware/authMiddleware');
 
 router.post('/add', authenticateToken, kategoryController.addKategory);
 router.get('/getAll', kategoryController.getAllKategory);
+router.get('/getKategory/:id', kategoryController.getKategoryById);
 router.get('/getAllKategory/:mainKategoryId', kategoryController.getAllKategoryByMainKategoryId);
 router.delete('/delete/:id', authenticateToken, kategoryController.deleteKategoryById);
 // router.delete('/deleteAllkategotyByMainKategoryId/:mainKategoryId', authenticateToken, kategoryController.deleteAllRelationInMainKategoryByMainKategoryId);

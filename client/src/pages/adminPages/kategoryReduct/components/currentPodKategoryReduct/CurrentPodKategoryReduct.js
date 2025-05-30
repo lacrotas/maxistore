@@ -7,7 +7,7 @@ import CurrentKategoryReductItem from "./currentKategoryReductItem/CurrentKatego
 import UpdateImage from "../../../../../assets/images/UpdateImage.png";
 import { useState, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
-import { fetchAllKategoryByPodKategoryId, postPodKategory, deletePodKategoryById, updateKategory, deleteKategoryByMainKategoryId } from "../../../../../http/KategoryApi";
+import { fetchAllPodKategoryByKategoryId, postPodKategory, deletePodKategoryById, updateKategory, deleteKategoryByMainKategoryId } from "../../../../../http/KategoryApi";
 import ModalWindow from "../../../../../components/modalWindow/ModalWindow";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import { KATEGORY_REDUCT_ROUTE, LOGIN_ROUTE } from "../../../../appRouter/Const";
@@ -35,7 +35,7 @@ function CurrentPodKategoryReduct() {
     const [newKategoryValue, setNewKategoryValue] = useState("");
     const [currentKategoryName, setCurrentKategoryName] = useState(name || "");
     useEffect(() => {
-        fetchAllKategoryByPodKategoryId(id).then(data => setPodKategory(data));
+        fetchAllPodKategoryByKategoryId(id).then(data => setPodKategory(data));
     }, []);
 
     //kategory

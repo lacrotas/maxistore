@@ -36,7 +36,7 @@ export const publicRoutes = [
         Component: BasketPage
     },
     {
-        path: ITEM_ROUTE,
+        path: ITEM_ROUTE + '/:maincategory/:category?/:subcategory?',
         Component: ItemPage
     },
     {
@@ -52,7 +52,7 @@ export const publicRoutes = [
         Component: ItemFullPreview
     },
     {
-        path: ITEM_MAIN_ROUTE + '/:id',
+        path: ITEM_MAIN_ROUTE + '/:maincategory/:category?/:subcategory?',
         Component: ItemPageMainKategory
     },
 ];

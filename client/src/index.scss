@@ -11,18 +11,49 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: #F5F5F5;
 }
-.app_container{
-  max-width: 1800px;
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh; 
+  display: flex; 
+  flex-direction: column;
+}
+
+// #root {
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+// }
+
+.app_container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+#root {
+  flex: 1; // Занимает всё доступное пространство
+  display: flex;
+  flex-direction: column;
+  min-height: 0; // Важно для вложенных flex-элементов
 }
 
 .App {
-  min-height: 100vh;
+  flex: 1; // Растягивается на всю высоту
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 /* Для WebKit-браузеров (Chrome, Safari) */
@@ -57,13 +88,15 @@ body {
   src: url("./assets/fonts/Montserrat-Regular.ttf");
 }
 
-.common_reg{
+.common_reg {
   font-family: "Montserrat_reg";
 }
-.common_bold{
+
+.common_bold {
   font-family: "Jura_bold";
 }
-.title_bold{
+
+.title_bold {
   font-family: "Montserrat_bold";
 }
 
@@ -73,12 +106,18 @@ a {
 }
 
 // paragraph
-.tiny_p{
+.super_tiny_p {
+  font-size: 12px;
+}
+
+.tiny_p {
   font-size: 14px;
 }
+
+
 .small_p {
   // font-family: "Montserrat_reg";
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .medium_p {
@@ -118,9 +157,11 @@ a {
   .small_h {
     font-size: 20px;
   }
+
   .jura_medium_bold {
     font-size: 20px;
   }
+
   .small_p {
     font-size: 16px;
   }
@@ -148,7 +189,8 @@ a {
   .description_p {
     font-size: 14px;
   }
-  .super_large_p{
+
+  .super_large_p {
     font-size: 26px;
   }
 }
@@ -157,9 +199,11 @@ a {
   .medium_p {
     font-size: 16px;
   }
+
   .jura_medium_bold {
     font-size: 16px;
   }
+
   .small_h {
     font-size: 16px;
   }
@@ -175,7 +219,8 @@ a {
   .tiny_p {
     font-size: 14px;
   }
-  .super_large_p{
+
+  .super_large_p {
     font-size: 22px;
   }
 }

@@ -11,7 +11,6 @@ function BusketFinal({ finalsum }) {
         } else {
             document.body.style.overflow = '';
         }
-        // Возвращаем функцию, которая будет выполняться при размонтировании компонента
         return () => {
             document.body.style.overflow = '';
         };
@@ -22,7 +21,8 @@ function BusketFinal({ finalsum }) {
         <>
             {isModalActive ? <ModalWindow setIsModalActive={setIsModalActive} type={"order"} /> : <></>}
             <div className="busketFinal">
-                <p className="small_h">Итоговая стоимость: {finalsum} руб</p>
+                <p className="small_h">Ваш заказ</p>
+                <p className="small_h">Итог: {finalsum} руб</p>
                 <button className="busketFinal_button tiny_p" onClick={() => setIsModalActive(true)}>Оформить заказ</button>
             </div>
         </>

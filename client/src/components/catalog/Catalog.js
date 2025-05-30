@@ -14,14 +14,21 @@ export default function Catalog() {
     useEffect(() => {
         fetchAllMainKategory().then(data => {
             setAllKategory(data);
-            data.map((item) => {
-                fetchAllItemByMainKategoryId(item.id).then(data => {
-                    const itemsLengh = data.length;
-                    setItemsCounter(prevState => [...prevState, itemsLengh]);
-                })
-            })
-        })
-    }, [])
+
+            const counters = {};
+
+            const fetchPromises = data.map(item => {
+                return fetchAllItemByMainKategoryId(item.id).then(items => {
+                    counters[item.id] = items.length;
+                });
+            });
+
+            Promise.all(fetchPromises).then(() => {
+                setItemsCounter(counters);
+            });
+        });
+    }, []);
+
 
     return (
         <>
@@ -35,7 +42,14 @@ export default function Catalog() {
                     </div>
                 </div>
                 {allKategory.length > 0 && allKategory.map((item, index) => (
-                    <CatalogItem counter={"0" + (index + 1)} image={item.image} label={item.name} itemId={item.id} item_counter={itemsCounter[index]} />
+                    <CatalogItem
+                        key={item.id}
+                        counter={"0" + (index + 1)}
+                        image={item.image}
+                        label={item.name}
+                        itemId={item.id}
+                        item_counter={itemsCounter[item.id] || 0}
+                    />
                 ))}
             </section>
             {isCategotyActive ? <CatalogInfoSlide setIsCategoryActive={setIsCategoryActive} /> : <></>}

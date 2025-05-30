@@ -15,7 +15,7 @@ export default function CatalogItem({ itemId, counter, image, label, item_counte
     }
 
     return (
-        <NavLink to={{ pathname: ITEM_MAIN_ROUTE + "/" + itemId, state: { path: { name: label } } }}>
+        <NavLink to={{ pathname: ITEM_MAIN_ROUTE + "/" + itemId, state: { path: { name: label } } }} onClick={() => window.scrollTo(0, 0)}>
             <div className="catalog_item">
                 <div className="item_container">
                     <h2 className="item_counter medium_p common_reg">{counter}</h2>

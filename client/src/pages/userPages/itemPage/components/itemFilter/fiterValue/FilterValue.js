@@ -21,7 +21,7 @@ function FilterValue({ item, value, setNewCurrentFilter }) {
                 <img className="item_image" src={EmptyCheckBox} alt="checkbox" />
             }
 
-            <p className="item_paragraph tiny_p">{value.name}</p>
+            <p className="item_paragraph common_reg tiny_p">{value.name}</p>
         </div>
     )
 }

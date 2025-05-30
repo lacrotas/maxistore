@@ -27,6 +27,13 @@ class MainKategoryController {
         const mainKategory = await MainKategory.findAll();
         return res.json(mainKategory);
     }
+    async getMainKategoryById(req, res) {
+        const { id } = req.params
+        const mainKategory = await MainKategory.findOne(
+            { where: { id } }
+        )
+        return res.json(mainKategory);
+    }
     async deleteMainKategoryById(req, res) {
         const { id } = req.params
         const mainKategory = await MainKategory.findOne(

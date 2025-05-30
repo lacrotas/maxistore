@@ -7,7 +7,6 @@ import { LOGIN_ROUTE } from "../../../../appRouter/Const";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 function AddReview({ reviewItem }) {
-    const [itemLabel, setItemLabel] = useState(reviewItem.label);
     const [itemDescription, setItemDescription] = useState(reviewItem.description);
     const [itemRating, setItemRating] = useState(reviewItem.mark - 1);
 
@@ -15,7 +14,7 @@ function AddReview({ reviewItem }) {
 
 
     function updateNewReview() {
-        updateOneReview(reviewItem.id, { label: itemLabel, description: itemDescription, mark: String(itemRating + 1), isShowed: true }).then((data) => {
+        updateOneReview(reviewItem.id, { label: '', description: itemDescription, mark: String(itemRating + 1), isShowed: true }).then((data) => {
             if (data) {
                 alert("Отзыв успешно добавлен");
                 window.location.reload();
@@ -39,7 +38,6 @@ function AddReview({ reviewItem }) {
     }
     return (
         <div className="modal_add_review">
-            <input className="custom_input tiny_p" onChange={(e) => setItemLabel(e.target.value)} value={itemLabel} type="text" placeholder={"Введите заголовок отзыва"} />
             <textarea className="custom_input review_textarea tiny_p" onChange={(e) => setItemDescription(e.target.value)} value={itemDescription} type="text" placeholder={"Введите описание отзыва"} />
             <div className="add_review_container">
                 <div className="add_review">

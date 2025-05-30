@@ -33,6 +33,13 @@ class podKategoryController {
         await mainKategory.destroy();
         return res.json('deleted');
     }
+    async getPodKategoryById(req, res) {
+        const { id } = req.params
+        const mainKategory = await PodKategory.findOne(
+            { where: { id } }
+        )
+        return res.json(mainKategory);
+    }
     async updatePodKategoryById(req, res) {
         const { id } = req.params;
         const { name, kategoryId } = req.body;

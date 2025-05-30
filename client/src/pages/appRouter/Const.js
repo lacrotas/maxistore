@@ -1,6 +1,6 @@
 export const MAIN_ROUTE = '/';
 export const BUSKET_ROUTE = '/busket';
-export const ITEM_ROUTE = '/item';
+export const ITEM_ROUTE = '/kategory';
 export const ITEM_SEARCH_ROUTE = '/itemSearch';
 export const ITEM_MAIN_ROUTE = '/itemMain';
 export const LOGIN_ROUTE = '/login';

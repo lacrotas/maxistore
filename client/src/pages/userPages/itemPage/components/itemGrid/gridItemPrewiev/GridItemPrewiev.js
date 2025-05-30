@@ -5,44 +5,41 @@ import { NavLink } from "react-router-dom";
 import { fetchAllAttributeValuesByItemId } from "../../../../../../http/itemAttributeApi";
 import { fetchReviewByItemIdAndIsShowed } from "../../../../../../http/reviewApi";
 import { useState, useEffect } from "react";
+import { FiShoppingCart, FiCheck } from "react-icons/fi";
 
-function GridItemPrewiev({ itemPrice, item, currentFilter }) {
+function GridItemPreview({ itemPrice, item, currentFilter }) {
     const [attributesValue, setAttributeValue] = useState([]);
-    // const [revies, setRevies] = useState([]);
-    const [avarigeMark, setAvarigeMark] = useState([]);
-    const [reviesLenght, setReviesLenght] = useState(0);
+    const [averageMark, setAverageMark] = useState(0);
+    const [reviewsLength, setReviewsLength] = useState(0);
     const [isRight, setIsRight] = useState(true);
-    const [isAddedToBusket, setIsAddedToBusket] = useState(false);
+    const [isAddedToBasket, setIsAddedToBasket] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
         fetchAllAttributeValuesByItemId(item.id).then(data => {
             setAttributeValue(data || []);
         });
         fetchReviewByItemIdAndIsShowed(item.id).then(data => {
-            // setRevies(data || [])
-            setAvarigeMark(setRaiting(data));
-            setReviesLenght(data.length);
-        })
-    }, []);
-    function setRaiting(review) {
-        let sum = 0;
-        if (review) {
-            review.map((item) => {
-                sum += Number(item.mark);
-            })
-        }
-        return (sum / Number(review.length));
-    }
+            setAverageMark(calculateRating(data));
+            setReviewsLength(data.length);
+        });
+    }, [item.id]);
+
     useEffect(() => {
         if (Number(item.price) > itemPrice.min && Number(item.price) < itemPrice.max) {
             setIsRight(checkFilters(currentFilter, attributesValue));
         } else {
             setIsRight(false);
         }
-    }, [currentFilter, itemPrice])
+    }, [currentFilter, itemPrice, item.price, attributesValue]);
+
+    function calculateRating(reviews) {
+        if (!reviews || reviews.length === 0) return 0;
+        const sum = reviews.reduce((total, review) => total + Number(review.mark), 0);
+        return sum / reviews.length;
+    }
 
     function checkFilters(currentFilter, attributesValue) {
-        // Группируем элементы currentFilter по attributeId
         const groupedFilters = currentFilter.reduce((acc, filter) => {
             if (!acc[filter.attributeId]) {
                 acc[filter.attributeId] = [];
@@ -51,71 +48,92 @@ function GridItemPrewiev({ itemPrice, item, currentFilter }) {
             return acc;
         }, {});
 
-        // Проверяем каждый attributeId
         for (let attributeId in groupedFilters) {
-            // Ищем элемент в attributesValue с таким attributeId
             const matchingAttribute = attributesValue.find(item =>
                 Number(item.attributeId) === Number(attributeId)
             );
 
-            // Если не найден элемент в attributesValue с таким attributeId, пропускаем этот фильтр
             if (matchingAttribute) {
-                // Проверяем, есть ли хотя бы одно совпадение по valueId для всех объектов с этим attributeId
                 const hasMatchingValueId = groupedFilters[attributeId].some(filter =>
                     Number(filter.valueId) === Number(matchingAttribute.valueId)
                 );
 
-                // Если ни одно valueId не совпадает, возвращаем false
                 if (!hasMatchingValueId) {
                     return false;
                 }
             }
         }
 
-        // Если все условия выполнены, возвращаем true
         return true;
     }
 
-    function addToBusket() {
-        setIsAddedToBusket(true);
-        let busket = localStorage.getItem("maxiBusket") || "false";
-        let newBusket = busket == "false" ? [] : busket.split(',');
-        newBusket.push(item.id);
-        localStorage.setItem('maxiBusket', newBusket);
+    function addToBasket() {
+        setIsAddedToBasket(true);
+        let basket = localStorage.getItem("maxiBasket") || "false";
+        let newBasket = basket === "false" ? [] : basket.split(',');
+        newBasket.push(item.id);
+        localStorage.setItem('maxiBasket', newBasket);
     }
 
     return (
         <>
-            {
-                isRight ?
-
-                    <div className="grid_item_prewiev">
-                        <NavLink to={ITEM_PREVIEW_ROUTE + "/" + item.id} className="grid_item_prewiev-a">
-                            <div className="item_prewiev_container">
-                                <img className="item_prewiev_image" src={process.env.REACT_APP_API_URL + item.image} alt="image" />
-                            </div>
-                            <p className={`item_prewiev_paragraph tiny_p ${item.isExist ? "active" : "unactive"}`}>{item.isExist ? "Есть в наличии" : "Нет в наличии"}</p>
-                            <p className="item_prewiev_paragraph item_prewiev_paragraph-name jura_semi-medium_p">{item.name}</p>
-                            {reviesLenght !== 0 ?
-                                <div className="item_prewiev_rating">
-                                    <Rating rating={avarigeMark} />
-                                    <p className="rating_paragraph">{reviesLenght} отзывов</p>
-                                </div> :
-                                <div className="item_prewiev_rating">
-                                    <p className="rating_paragraph">Пока у данного товара нет отзывов</p>
-                                </div>
-                            }
-                            <p className="item_prewiev_paragraph jura_semi-medium_p">{item.price} руб.</p>
-                        </NavLink >
-
-                        <div className={`custom_button ${isAddedToBusket ? "active" : ""}`} onClick={() => addToBusket()}>
-                            <p className="custom_button_text tiny_p">{!isAddedToBusket ? "Добавить в корзину" : "Добавлен в корзину"}</p>
-                        </div>
+            {isRight && (
+                <div
+                    className={`product-card ${isHovered ? 'hovered' : ''} ${!item.isExist ? 'out-of-stock' : ''}`}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    <div className={`card-badge ${item.isExist ? 'in-stock' : 'out-of-stock'}`}>
+                        {item.isExist ? 'В наличии' : 'Нет в наличии'}
                     </div>
 
-                    : null}
+                    <NavLink to={ITEM_PREVIEW_ROUTE + "/" + item.id} className="card-image-link">
+                        <div className="card-image-container">
+                            <img
+                                src={process.env.REACT_APP_API_URL + item.image}
+                                alt={item.name}
+                                className="card-image"
+                                loading="lazy"
+                            />
+                        </div>
+                    </NavLink>
+
+                    <div className="card-content">
+                        <h3 className="card-title">{item.name}</h3>
+
+                        <div className="card-rating">
+                            <Rating rating={averageMark} />
+                            {reviewsLength > 0 ? (
+                                <span className="reviews-count">{reviewsLength} отзывов</span>
+                            ) : (
+                                <span className="reviews-count">Нет отзывов</span>
+                            )}
+                        </div>
+
+                        <div className="card-price">{item.price} ₽</div>
+
+                        <button
+                            className={`add-to-cart ${isAddedToBasket ? 'added' : ''}`}
+                            onClick={addToBasket}
+                            disabled={!item.isExist}
+                        >
+                            {isAddedToBasket ? (
+                                <>
+                                    <FiCheck className="cart-icon" />
+                                    <span>В корзине</span>
+                                </>
+                            ) : (
+                                <>
+                                    <FiShoppingCart className="cart-icon" />
+                                    <span>В корзину</span>
+                                </>
+                            )}
+                        </button>
+                    </div>
+                </div>
+            )}
         </>
-    )
+    );
 }
 
-export default GridItemPrewiev;
+export default GridItemPreview;

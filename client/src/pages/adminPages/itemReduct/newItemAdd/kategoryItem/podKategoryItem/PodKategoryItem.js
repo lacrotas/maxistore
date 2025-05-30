@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchAllKategoryByPodKategoryId } from "../../../../../../http/KategoryApi";
+import { fetchAllPodKategoryByKategoryId } from "../../../../../../http/KategoryApi";
 import CustomButton from "../../../../../../customUI/customButton/CustomButton";
 import "./PodKategoryItem.scss";
 
@@ -9,7 +9,7 @@ function PodKategoryItem({ item, setChoosenKategory, mainKategoryId }) {
 
     useEffect(() => {
         // Получаем все основные категории
-        fetchAllKategoryByPodKategoryId(item.id).then(data => { setAllKategory(data); });
+        fetchAllPodKategoryByKategoryId(item.id).then(data => { setAllKategory(data); });
     }, []);
 
     return (

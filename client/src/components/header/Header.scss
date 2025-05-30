@@ -173,7 +173,8 @@
     transition: all 0.3s ease;
 
     .container {
-        max-width: 1400px;
+        width: calc(100vw - 40px);
+        max-width: 1920px;
         margin: 0 auto;
         padding: 0 20px;
     }

@@ -2,47 +2,114 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 
     .itemPageMainKategory_paragraph {
         margin-left: 50px;
     }
 
     .itemPageMainKategory_grid {
-        margin-top: 30px;
-        margin-bottom: 30px;
-        margin-left: 50px;
+        margin-left: 20px;
         width: calc(100% - 100px);
-        min-height: calc(100vh - 250px);
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 10px;
+
+        .kategoryPreview {
+            width: 180px;
+            min-height: 60px; // Минимальная высота для аккуратного вида
+            padding: 12px 15px;
+            border-radius: 10px;
+            background-color: #fff;
+            text-align: center;
+            box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease; // Анимация всех свойств
+            border: 1px solid #eee; // Лёгкая граница для аккуратности
+            overflow: hidden; // Чтобы текст не выходил за границы
+
+            &:hover {
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+                transform: translateY(-3px); // Эффект "поднятия"
+                background-color: #f8f8f8; // Легкое изменение фона
+            }
+
+            .kategoryPreview_paragraph {
+                margin: 0;
+                font-weight: 500;
+                color: #333;
+                white-space: nowrap; // Запрещаем перенос текста
+                overflow: hidden; // Обрезаем текст, если не помещается
+                text-overflow: ellipsis; // Добавляем "..." если текст слишком длинный
+                max-width: 100%; // Ограничиваем ширину текста
+            }
+        }
     }
-}
 
-.kategoryPreview {
-    width: 300px;
-    height: 230px;
-    overflow: hidden;
-    border-radius: 40px 0 40px 0;
-    background-color: #fff;
-    text-align: center;
-    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-
-    &:hover {
-        box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.3);
-    }
-
-    .kategoryPreview_image {
+    .page-content-container {
+        display: flex;
         width: 100%;
-        height: 180px;
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 20px;
+        gap: 30px;
+        flex: 1;
+        overflow-y: auto;
     }
 
-    .kategoryPreview_paragraph {
-        margin: 0;
-        margin-top: 5px;
+    .filter-section {
+        width: 280px;
+        flex-shrink: 0;
+        background: #fff;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        height: fit-content;
+        position: sticky;
+        // top: 100px;
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+
+            h3 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 600;
+                color: #333;
+            }
+
+            .apply-filters-btn {
+                background: #33A9FF;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                border-radius: 6px;
+                cursor: pointer;
+                font-weight: 500;
+                transition: background 0.2s;
+
+                &:hover {
+                    background: #2a8ad8;
+                }
+            }
+        }
     }
+
+    .products-section {
+        flex-grow: 1;
+    }
+
+    .loading-message {
+        text-align: center;
+        padding: 40px;
+        color: #666;
+    }
+
 }
 
 @media screen and (max-width: 760px) {
@@ -51,7 +118,8 @@
         .itemPageMainKategory_grid {
             justify-items: center;
         }
-        .itemPageMainKategory_paragraph{
+
+        .itemPageMainKategory_paragraph {
             margin: 0;
             margin-left: 20px;
             margin-top: 10px;

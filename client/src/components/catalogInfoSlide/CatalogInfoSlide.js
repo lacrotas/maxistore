@@ -1,9 +1,10 @@
 import "./CatalogInfoSlide.scss";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { ITEM_ROUTE } from "../../pages/appRouter/Const";
-import { fetchAllMainKategory, fetchAllKategoryByMainKategoryId, fetchAllKategoryByPodKategoryId } from "../../http/KategoryApi";
+import { ITEM_MAIN_ROUTE } from "../../pages/appRouter/Const";
+import { fetchAllMainKategory, fetchAllKategoryByMainKategoryId, fetchAllPodKategoryByKategoryId } from "../../http/KategoryApi";
 import { useHistory } from 'react-router-dom';
+import { FiX } from "react-icons/fi";
 
 function CatalogInfoSlide({ setIsCategoryActive }) {
     const history = useHistory();
@@ -27,7 +28,7 @@ function CatalogInfoSlide({ setIsCategoryActive }) {
                 Promise.all(
                     subCategoryData.map((subCategories, index) =>
                         Promise.all(subCategories.map(subCat =>
-                            fetchAllKategoryByPodKategoryId(subCat.id)
+                            fetchAllPodKategoryByKategoryId(subCat.id)
                         ))
                     )
                 ).then(podCategoryData => {
@@ -36,45 +37,74 @@ function CatalogInfoSlide({ setIsCategoryActive }) {
             });
         });
     }, []);
-
     const handleClick = (newPath) => {
         history.push({
-            pathname: ITEM_ROUTE,
+            pathname: ITEM_MAIN_ROUTE,
             state: { path: newPath },
         });
-        window.location.reload();
+        setIsCategoryActive(false);
     };
 
     return (
-        <div>
-            <div className="catalogSlide">
-                {mainCategory.length > 0 && mainCategory.map((mainCategoryItem, index) => (
-                    <div className="catalogSlide_mainCategory">
-                        <p onClick={() => setActiveCategory(index)} className={activeCategory === index ? "mainCategory_label small_p active" : "mainCategory_label small_p"}>{mainCategoryItem.name}</p>
-                        <div className="right_block">
-                            {category[index]?.length > 0 && category[index].map((categoryItem, categoryIndex) => (
-                                <div className={activeCategory === index ? "right_block_category active" : "right_block_category"}>
-                                    <NavLink onClick={() => handleClick([mainCategoryItem, categoryItem])} to={{ pathname: ITEM_ROUTE, state: { path: [mainCategoryItem, categoryItem] } }}>
-                                        <p className="category_label small_p">{categoryItem.name}</p>
+        <div className="catalog-modal">
+            <div className="modal-overlay" onClick={() => setIsCategoryActive(false)}></div>
+
+            <div className="modal-container">
+                <button className="close-button" onClick={() => setIsCategoryActive(false)}>
+                    <FiX size={24} />
+                </button>
+
+                <div className="categories-container">
+                    <div className="main-categories">
+                        {mainCategory.map((mainCategoryItem, index) => (
+                            <div
+                                key={mainCategoryItem.id}
+                                className={`main-category ${activeCategory === index ? 'active' : ''}`}
+                                onClick={() => setActiveCategory(index)}
+                            >
+                                {mainCategoryItem.name}
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="subcategories-container">
+                        {category[activeCategory]?.map((categoryItem, categoryIndex) => {
+                            const mainCategoryItem = mainCategory[activeCategory];
+                            return (
+                                <div key={categoryItem.id} className="subcategory-group">
+                                    <NavLink
+                                        className="subcategory-title"
+                                        to={{
+                                            pathname: `${ITEM_MAIN_ROUTE}/${mainCategoryItem.id}/${categoryItem.id}`,
+                                            state: { path: [mainCategoryItem, categoryItem] }
+                                        }}
+                                        onClick={() => handleClick([mainCategoryItem, categoryItem])}
+                                    >
+                                        {categoryItem.name}
                                     </NavLink>
-                                    <div className="podCategory_container tiny_p">
-                                        {podCategory[index]?.[categoryIndex]?.length > 0 && podCategory[index][categoryIndex].map((podCategoryitem, categortindex) => (
-                                            <NavLink onClick={() => handleClick([mainCategoryItem, categoryItem, podCategoryitem])} to={{ pathname: ITEM_ROUTE, state: { path: [mainCategoryItem, categoryItem, podCategoryitem] } }}>
-                                                <p onClick={() => setIsCategoryActive(false)} className="podCategory_label">{podCategoryitem.name}</p>
+
+                                    <div className="podcategories">
+                                        {podCategory[activeCategory]?.[categoryIndex]?.map(podCategoryitem => (
+                                            <NavLink
+                                                key={podCategoryitem.id}
+                                                className="podcategory-item"
+                                                to={{
+                                                    pathname: `${ITEM_MAIN_ROUTE}/${mainCategoryItem.id}/${categoryItem.id}/${podCategoryitem.id}`,
+                                                    state: { path: [mainCategoryItem, categoryItem, podCategoryitem] }
+                                                }}
+                                                onClick={() => handleClick([mainCategoryItem, categoryItem, podCategoryitem])}
+                                            >
+                                                {podCategoryitem.name}
                                             </NavLink>
                                         ))}
                                     </div>
                                 </div>
-                            ))}
-                        </div>
+                            );
+                        })}
                     </div>
-                ))}
-                <div className="custom_button" onClick={() => setIsCategoryActive(false)}>
-                    <p className="custom_button_text tiny_p">Закрыть</p>
                 </div>
             </div>
-            <div className="catalogSlide_close" onClick={() => setIsCategoryActive(false)}></div>
-        </div>
+        </div >
     )
 }
 

@@ -4,13 +4,13 @@ import ArrowImage from "../../../../../assets/images/arrow.png";
 import ArrowOpenImage from "../../../../../assets/images/arrowOpen.png";
 import { NavLink } from "react-router-dom";
 import { CURRENT_POD_KATEGORY_REDUCT_ROUTE } from "../../../../appRouter/Const";
-import { fetchAllKategoryByPodKategoryId } from "../../../../../http/KategoryApi";
+import { fetchAllPodKategoryByKategoryId } from "../../../../../http/KategoryApi";
 import { useEffect, useState } from "react";
 
 function PodKategoryItemPreview({ podKategory }) {
     const [qwestionData, setQwestionData] = useState([])
     useEffect(() => {
-        fetchAllKategoryByPodKategoryId(podKategory.id).then(data => setQwestionData(data));
+        fetchAllPodKategoryByKategoryId(podKategory.id).then(data => setQwestionData(data));
     }, []);
     const [activeIndex, setActiveIndex] = useState(false);
     return (

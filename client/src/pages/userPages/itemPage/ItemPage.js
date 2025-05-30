@@ -1,35 +1,43 @@
-import HistoryCatalog from "../../../components/historyCatalog/HistoryCatalog";
 import Headers from "../../../components/header/Header";
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import PlusImage from "../../../assets/images/plus.png";
 import "./ItemPage.scss";
 import ItemFilter from "./components/itemFilter/ItemFilter";
 import { fetchAllAttributeByKategoryId, fetchAllAttributeByPodKategoryId } from "../../../http/filterApi";
+import { fetchMainKategoryById, fetchKategoryById } from "../../../http/KategoryApi";
 import ItemGrid from "./components/itemGrid/ItemGrid";
 import Footer from "../../../components/footer/Footer";
-import PriceItem from "../../../components/priceItem/PriceItem";
-import LeftArrowImage from "../../../assets/images/arrow.png";
-import RightArrowImage from "../../../assets/images/arrowRight.png";
+import PriceItem from "./components/itemFilter/priceItem/PriceItem";
+import Breadcrumbs from "../../../components/breadcrumbs/Breadcrumbs";
+
 
 function ItemPage() {
-    const location = useLocation();
-    const path = location.state?.path;
-    const [filter, setFilter] = useState([]);
-    const [kategryId, setKategoryId] = useState(false);
-    const [podKategryId, setPodKategryId] = useState(false);
+    const { maincategory, category, subcategory } = useParams();
 
+    const [filter, setFilter] = useState([]);
+    const [mainKategryName, setMainKategoryName] = useState(false);
+    const [kategryName, setKategoryName] = useState(false);
+    const [podKategryName, setPodKategryName] = useState(false);
     const [itemPrice, setItemPrice] = useState({ min: 0, max: 5000 });
     const [currentFilter, setCurrentFilter] = useState([]);
 
-    const [isFilterOpen, setIsFilterOpen] = useState(true);
+    const breadcrumbsItems = [
+        { title: "Главная", path: "/" },
+        { title: mainKategryName, path: "/itemMain/" + maincategory },
+        { title: podKategryName, path: "" }
+    ];
 
     useEffect(() => {
-        if ((path.length - 1) === 2) {
-            setPodKategryId(path[path.length - 1].id);
-            fetchAllAttributeByKategoryId(path[path.length - 2].id).then(dataKategory => {
+        if (subcategory) {
+            fetchMainKategoryById(maincategory).then(mainKategoryItem => {
+                setMainKategoryName(mainKategoryItem.name);
+            })
+            fetchKategoryById(subcategory).then(subKategoryItem => {
+                setPodKategryName(subKategoryItem.name);
+            })
+            fetchAllAttributeByKategoryId(category).then(dataKategory => {
                 setFilter(dataKategory);
-                fetchAllAttributeByPodKategoryId(path[path.length - 1].id).then(data => {
+                fetchAllAttributeByPodKategoryId(subcategory).then(data => {
                     if (data.length > 0) {
                         data.map(item => {
                             const newElement = item;
@@ -39,8 +47,13 @@ function ItemPage() {
                 })
             })
         } else {
-            setKategoryId(path[path.length - 1].id);
-            fetchAllAttributeByKategoryId(path[path.length - 1].id).then(data => {
+            fetchMainKategoryById(maincategory).then(mainKategoryItem => {
+                setMainKategoryName(mainKategoryItem.name);
+            })
+            fetchKategoryById(category).then(subKategoryItem => {
+                setPodKategryName(subKategoryItem.name);
+            })
+            fetchAllAttributeByKategoryId(category).then(data => {
                 setFilter(data);
             })
         }
@@ -60,30 +73,34 @@ function ItemPage() {
             setCurrentFilter(prevState => [...prevState, newFilter]);
         }
     }
-    function applyFilters() {
-        console.log(currentFilter);
-    }
+
     return (
         <div className="itemPage">
             <Headers />
-            <HistoryCatalog path={path} />
-            <div className="itemPage_fiter_grid_container">
-                <div className={`itemPage_filter_container ${isFilterOpen ? "active" : "unactive"}`}>
-                    <PriceItem setItemPrice={setItemPrice} />
-                    <div className="filter_container_button">
-                        <img className="container_button-image" src={isFilterOpen ? LeftArrowImage : RightArrowImage} onClick={() => setIsFilterOpen(!isFilterOpen)} alt="arrow" />
+            <Breadcrumbs items={breadcrumbsItems} />
+            <div className="page-content-container">
+                <div className="filter-section">
+                    <div className="filter-header">
+                        <h3>Фильтры</h3>
                     </div>
-                    <div className="filter_container_items">
+
+                    <PriceItem setItemPrice={setItemPrice} />
+
+                    <div className="filter-items-container">
                         {filter.map((item, index) => (
                             <ItemFilter setNewCurrentFilter={setNewCurrentFilter} item={item} key={index} />
                         ))}
                     </div>
                 </div>
-                {kategryId || podKategryId ?
-                    <ItemGrid isFilterOpen={isFilterOpen} kategryId={kategryId} itemPrice={itemPrice} currentFilter={currentFilter} podKategryId={podKategryId} />
-                    : <></>
-                }
+                <div className="products-section">
+                    {category || subcategory ?
+                        <ItemGrid kategryId={category} itemPrice={itemPrice}
+                            currentFilter={currentFilter} podKategryId={subcategory} />
+                        : <div className="loading-message">Загрузка товаров...</div>
+                    }
+                </div>
             </div>
+
             <Footer />
         </div>
     );
