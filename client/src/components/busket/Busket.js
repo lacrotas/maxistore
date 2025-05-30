@@ -136,7 +136,7 @@ function Busket() {
     const [itemCounter, setItemCounter] = useState(0);
     const [itemsArray, setItemsArray] = useState([]);
     const [isModalActive, setIsModalActive] = useState(false);
-
+    const [itemsQuantities, setItemsQuantities] = useState({});
     useEffect(() => {
         if (isModalActive) {
             document.body.style.overflow = 'hidden';
@@ -159,18 +159,38 @@ function Busket() {
     const loadBasketItems = async () => {
         let basket = localStorage.getItem("maxiBasket") || "false";
         let newBasket = basket === "false" ? [] : basket.split(',');
+
+        // Подсчитываем количество каждого товара
+        const itemCounts = {};
+        newBasket.forEach(id => {
+            itemCounts[id] = (itemCounts[id] || 0) + 1;
+        });
+        setItemsQuantities(itemCounts);
+
         const uniqueItems = removeDuplicates(newBasket.filter(id => id));
 
-        setItemCounter(uniqueItems.length);
+        // Общее количество товаров с учетом количества
+        const totalItemsCount = newBasket.filter(id => id).length;
+        setItemCounter(totalItemsCount);
 
         const itemsData = await Promise.all(
-            uniqueItems.map(id => fetchItemId(id).catch(() => null)
-            ));
+            uniqueItems.map(id => fetchItemId(id).catch(() => null))
+        );
 
         const validItems = itemsData.filter(item => item !== null);
-        setItemsArray(validItems);
 
-        const total = validItems.reduce((sum, item) => sum + Number(item.price), 0);
+        // Добавляем информацию о количестве к каждому товару
+        const itemsWithQuantities = validItems.map(item => ({
+            ...item,
+            quantity: itemCounts[item.id] || 1
+        }));
+
+        setItemsArray(itemsWithQuantities);
+
+        // Пересчитываем сумму с учетом количества
+        const total = validItems.reduce((sum, item) => {
+            return sum + (Number(item.price) * (itemCounts[item.id] || 1));
+        }, 0);
         setFinalSum(total);
     };
 
@@ -193,12 +213,16 @@ function Busket() {
         let busket = localStorage.getItem("maxiBasket") || "false";
         let newBusket = busket === "false" ? [] : busket.split(',');
 
-        const updatedBusket = newBusket.filter(id => id !== itemToRemove.id.toString());
-        localStorage.setItem('maxiBasket', updatedBusket.join(','));
+        // Удаляем только одно вхождение товара
+        const itemIndex = newBusket.findIndex(id => id === itemToRemove.id.toString());
+        if (itemIndex !== -1) {
+            newBusket.splice(itemIndex, 1);
+        }
 
-        setItemsArray(prev => prev.filter((_, i) => i !== index));
-        setFinalSum(prev => prev - Number(itemToRemove.price));
-        setItemCounter(prev => prev - 1);
+        localStorage.setItem('maxiBasket', newBusket.join(','));
+
+        // Обновляем состояния
+        loadBasketItems(); // Проще перезагрузить корзину полностью
     };
 
     const wordEndings = ['товар', 'товара', 'товаров'];
@@ -211,7 +235,12 @@ function Busket() {
                 : cases[Math.min(number % 10, 5)]
         ];
     }
-
+    const clearBasket = () => {
+        localStorage.removeItem('maxiBasket');
+        setItemsArray([]);
+        setItemCounter(0);
+        setFinalSum(0);
+    };
     return (
         <div className="busket-page-container">
             <div className="busket-main-content">
@@ -227,6 +256,7 @@ function Busket() {
                                 index={index}
                                 item={item}
                                 setFinalSum={setFinalSum}
+                                initialQuantity={item.quantity} // Передаем начальное количество
                             />
                         ))}
                     </div>
@@ -255,9 +285,11 @@ function Busket() {
             </div>
 
             {isModalActive && (
-                <ModalWindow
+              <ModalWindow
                     setIsModalActive={setIsModalActive}
+                    value={itemsArray}
                     type={"order"}
+                    addImageToArray={clearBasket}
                 />
             )}
         </div>

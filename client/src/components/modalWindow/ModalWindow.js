@@ -14,7 +14,7 @@ function ModalWindow({ setIsModalActive, type, value, addImageToArray }) {
         document.body.classList.add('modal-open');
         return () => document.body.classList.remove('modal-open');
     }, []);
-    
+
     return (
         <div className="modal">
             <div className="modal_content">
@@ -25,7 +25,7 @@ function ModalWindow({ setIsModalActive, type, value, addImageToArray }) {
                         : type === "delivery" ?
                             <Delivery />
                             : type === "order" ?
-                                <Order />
+                                <Order closeModal={setIsModalActive} value={value} onOrderComplete={addImageToArray} />
                                 : type === "addCategory" ?
                                     <AddCategory value={value} />
                                     : type === "addAttributeValue" ?

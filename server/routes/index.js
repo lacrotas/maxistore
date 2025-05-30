@@ -13,7 +13,9 @@ const itemImageRouter = require('./itemImageRouter');
 const itemAttributeRouter = require('./itemAttributeRouter');
 const qwestionRouter = require('./qwestionRouter');
 const reviewRouter = require('./reviewRouter');
+const orderRouter = require('./orderRoutes');
 
+router.use('/order', orderRouter);
 router.use('/user', userRouter)
 router.use('/mainKategoryRouter', mainKategoryRouter);
 router.use('/kategoryRouter', kategoryRouter);

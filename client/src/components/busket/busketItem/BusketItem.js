@@ -2,8 +2,8 @@ import { useState } from "react";
 import { FaMinus, FaPlus, FaTimes } from "react-icons/fa";
 import "./BusketItem.scss";
 
-function BusketItem({ removeItem, item, setFinalSum, index }) { 
-    const [counter, setCounter] = useState(1);
+function BusketItem({ removeItem, item, setFinalSum, index, initialQuantity = 1 }) {
+    const [counter, setCounter] = useState(initialQuantity);
     const [price, setPrice] = useState(item.price);
 
     function changeCounter(type) {
@@ -14,6 +14,20 @@ function BusketItem({ removeItem, item, setFinalSum, index }) {
             const priceDiff = item.price * (newCounter - prevCounter);
             setPrice(item.price * newCounter);
             setFinalSum(prev => prev + priceDiff);
+
+            // Обновляем localStorage
+            let busket = localStorage.getItem("maxiBasket") || "false";
+            let newBusket = busket === "false" ? [] : busket.split(',');
+
+            if (type === "minus") {
+                const index = newBusket.findIndex(id => id === item.id.toString());
+                if (index !== -1) newBusket.splice(index, 1);
+            } else {
+                newBusket.push(item.id.toString());
+            }
+
+            localStorage.setItem('maxiBasket', newBusket.join(','));
+
             return newCounter;
         });
     }

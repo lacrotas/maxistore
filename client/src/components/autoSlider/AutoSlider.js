@@ -9,7 +9,9 @@ const AutoSlider = () => {
     const [sliders, setSliders] = useState([]);
 
     useEffect(() => {
-        fetchSliders().then(data => setSliders(data || []));
+        fetchSliders().then(data => {
+            setSliders(data || []);
+        });
     }, []);
 
     useEffect(() => {
@@ -24,17 +26,18 @@ const AutoSlider = () => {
     return (
         <div className="auto-slider">
             {sliders.map((item, idx) => (
-                <Slide 
-                    key={idx} 
-                    image={process.env.REACT_APP_API_URL + item.image} 
-                    label={item.label} 
+                <Slide
+                    key={idx}
+                    image={process.env.REACT_APP_API_URL + item.image}
+                    label={item.label}
                     description={item.description}
+                    link={item.link}
                     isActive={idx === currentIndex}
                 />
             ))}
             <div className="slider-indicators">
                 {sliders.map((_, idx) => (
-                    <div 
+                    <div
                         key={idx}
                         className={`indicator ${idx === currentIndex ? 'active' : ''}`}
                         onClick={() => setCurrentIndex(idx)}
