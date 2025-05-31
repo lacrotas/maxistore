@@ -14,10 +14,9 @@ const app = express();
 const corsOptions = {
     origin: [
         'http://localhost:80',
-        'http://81.91.190.95:80',
-        'http://localhost:5000',
-        'http://192.168.56.1:3000',
-        'http://localhost:3000'
+        'http://91.197.98.31:80',
+        'http://91.197.98.31:5000',
+        'http://localhost:5000'
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Origin, X-Requested-With, Content-Type, Accept, Authorization',

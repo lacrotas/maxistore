@@ -12,6 +12,8 @@ import Breadcrumbs from "../../../components/breadcrumbs/Breadcrumbs";
 import GridItemPreview from "../itemPage/components/itemGrid/gridItemPrewiev/GridItemPrewiev";
 import PriceItem from "../itemPage/components/itemFilter/priceItem/PriceItem";
 import ItemFilter from "../itemPage/components/itemFilter/ItemFilter";
+import { FiFilter } from "react-icons/fi";
+import { IoClose } from "react-icons/io5";
 
 function ItemPageMainKategory() {
     const { maincategory, category, subcategory } = useParams();
@@ -21,10 +23,23 @@ function ItemPageMainKategory() {
     const [filter, setFilter] = useState([]);
     const [itemPrice, setItemPrice] = useState({ min: 0, max: 5000 });
     const [currentFilter, setCurrentFilter] = useState([]);
+    const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
     // for path
     const [mainKategoryName, setMainKategoryName] = useState({});
     const [kategoryName, setKategoryName] = useState({});
     const [podKategoryName, setPodKategoryName] = useState({});
+
+    // Проверяем мобильное устройство
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 760);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 760);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     // Изменено: Вынесено в отдельную функцию для лучшей читаемости
     const getBreadcrumbsItems = () => {
@@ -34,16 +49,16 @@ function ItemPageMainKategory() {
         ];
 
         if (category) {
-            items.push({ 
-                title: kategoryName.name || "", 
-                path: "/itemMain/" + maincategory + "/" + category 
+            items.push({
+                title: kategoryName.name || "",
+                path: "/itemMain/" + maincategory + "/" + category
             });
         }
 
         if (subcategory) {
-            items.push({ 
-                title: podKategoryName.name || "", 
-                path: "/itemMain/" + maincategory + "/" + category + "/" + subcategory 
+            items.push({
+                title: podKategoryName.name || "",
+                path: "/itemMain/" + maincategory + "/" + category + "/" + subcategory
             });
         }
 
@@ -133,32 +148,34 @@ function ItemPageMainKategory() {
         <div className="itemPageMainKategory">
             <Headers />
             <Breadcrumbs items={getBreadcrumbsItems()} />
-            
+
             {/* Основные категории - показываем только если нет category в URL */}
             {!category && currentKategory.length > 0 && (
                 <div className="itemPageMainKategory_grid">
                     {currentKategory.map((item) => (
-                        <NavLink 
-                            to={`${ITEM_MAIN_ROUTE}/${maincategory}/${item.id}`} 
+                        <NavLink
+                            to={`${ITEM_MAIN_ROUTE}/${maincategory}/${item.id}`}
                             key={`maincat-${item.id}`}
+                            className="category-link"
                         >
-                            <div className="kategoryPreview">
+                            <div className="kategoryPreview" aria-label={`Категория ${item.name}`}>
                                 <p className="kategoryPreview_paragraph title_bold tiny_p">{item.name}</p>
                             </div>
                         </NavLink>
                     ))}
                 </div>
             )}
-            
+
             {/* Подкатегории - показываем только если есть category, но нет subcategory */}
             {category && !subcategory && currentPodKategory.length > 0 && (
                 <div className="itemPageMainKategory_grid">
                     {currentPodKategory.map((item) => (
-                        <NavLink 
-                            to={`${ITEM_MAIN_ROUTE}/${maincategory}/${category}/${item.id}`} 
+                        <NavLink
+                            to={`${ITEM_MAIN_ROUTE}/${maincategory}/${category}/${item.id}`}
                             key={`subcat-${item.id}`}
+                            className="category-link"
                         >
-                            <div className="kategoryPreview">
+                            <div className="kategoryPreview" aria-label={`Подкатегория ${item.name}`}>
                                 <p className="kategoryPreview_paragraph title_bold tiny_p">{item.name}</p>
                             </div>
                         </NavLink>
@@ -168,23 +185,33 @@ function ItemPageMainKategory() {
 
             {/* filter and grid */}
             <div className="page-content-container">
-                <div className="filter-section">
-                    <div className="filter-header">
-                        <h3>Фильтры</h3>
-                    </div>
+                {(!isMobile || isMobileFiltersOpen) && (
+                    <div className={`filter-section ${isMobileFiltersOpen ? 'active' : ''}`}>
+                        {isMobile && (
+                            <button
+                                className="filter-close-btn"
+                                onClick={() => setIsMobileFiltersOpen(false)}
+                            >
+                                <IoClose />
+                            </button>
+                        )}
+                        <div className="filter-header">
+                            <h3>Фильтры</h3>
+                        </div>
 
-                    <PriceItem setItemPrice={setItemPrice} />
+                        <PriceItem setItemPrice={setItemPrice} />
 
-                    <div className="filter-items-container">
-                        {filter.map((item, index) => (
-                            <ItemFilter 
-                                setNewCurrentFilter={setNewCurrentFilter} 
-                                item={item} 
-                                key={`filter-${index}`} 
-                            />
-                        ))}
+                        <div className="filter-items-container">
+                            {filter.map((item, index) => (
+                                <ItemFilter
+                                    setNewCurrentFilter={setNewCurrentFilter}
+                                    item={item}
+                                    key={`filter-${index}`}
+                                />
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
                 <div className="item-grid">
                     {itemPage.length > 0 ? (
                         <div className="item-grid__products">
@@ -204,6 +231,17 @@ function ItemPageMainKategory() {
                     )}
                 </div>
             </div>
+
+            {isMobile && (
+                <button
+                    className="filter-toggle-btn"
+                    onClick={() => setIsMobileFiltersOpen(true)}
+                >
+                    <FiFilter />
+                    Фильтры
+                </button>
+            )}
+
             <Footer />
         </div>
     );

@@ -31,24 +31,6 @@ function Footer() {
         <>
             {isModalActive ? <ModalWindow setIsModalActive={setIsModalActive} type={modalType} /> : <></>}
 
-            {/* <footer className="footer">
-                <div className="footer_container">
-                    <div className="container_links">
-                        <p className="links_item small_p common_reg" onClick={() => openModal("contacts")}>Контакты</p>
-                        <p className="links_item small_p common_reg" onClick={() => openModal("delivery")}>Доставка</p>
-                        <p className="links_item small_p common_reg" onClick={() => openModal("delivery")}>Оплата</p>
-                    </div>
-                    <img src={LogoImage} alt="logo" className="container_image" />
-                    <div className="container_contact">
-                        <p className="contact_label medium_p common_reg">Связаться с нами</p>
-                        <div className="container_contact_phones">
-                        <p className="contact_item small_p common_reg">+375 33 677-92-60</p>
-                        <p className="contact_item small_p common_reg">+375 29 120-11-90</p>
-                        </div>
-                    </div>
-                </div>
-                <p className="footer_copyright small_p">copyright © Maxistore 2024</p>
-            </footer> */}
             <footer className="footer">
                 <div className="footer_waves">
                     <div className="wave wave1"></div>
@@ -81,15 +63,15 @@ function Footer() {
                         <h3 className="footer_title common_reg small_p">Контакты</h3>
                         <div className="contact_info">
                             <div className="contact_item">
-                                <i className="fas fa-phone"></i>
+                                {/* <i className="fas fa-phone"></i> */}
                                 <span className="common_reg">+375 33 677-92-60</span>
                             </div>
                             <div className="contact_item">
-                                <i className="fas fa-phone"></i>
+                                {/* <i className="fas fa-phone"></i> */}
                                 <span className="common_reg">+375 29 120-11-90</span>
                             </div>
                             <div className="contact_item">
-                                <i className="fas fa-envelope"></i>
+                                {/* <i className="fas fa-envelope"></i> */}
                                 <span className="common_reg">info@maxistore.by</span>
                             </div>
                         </div>

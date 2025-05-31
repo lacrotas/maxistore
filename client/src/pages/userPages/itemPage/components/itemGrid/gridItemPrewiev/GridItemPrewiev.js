@@ -110,7 +110,7 @@ function GridItemPreview({ itemPrice, item, currentFilter }) {
                             )}
                         </div>
 
-                        <div className="card-price">{item.price} ₽</div>
+                        <div className="card-price">{item.price} Р.</div>
 
                         <button
                             className={`add-to-cart ${isAddedToBasket ? 'added' : ''}`}

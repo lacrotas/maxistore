@@ -279,11 +279,13 @@
       
       &_container {
         flex-direction: column;
+        align-items: center;
         gap: 30px;
       }
       
       &_column {
         padding: 0;
+        width: 150px;
         
         &.footer_logo {
           order: -1;
